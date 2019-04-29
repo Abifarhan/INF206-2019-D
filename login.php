@@ -1,3 +1,8 @@
+<?php 
+  session_start();
+  $koneksi = new mysqli("localhost", "root", "", "mugon");
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,25 +99,51 @@
         <div id="pembeli">   
           <h1>Login Pembeli</h1>
           
-          <form action="/" method="post">
+          <?php 
+            // jika tombol login ditekan
+            if (isset($_POST['login_pembeli'])){
+              // lakukan query cek akun dari tabel pelanggan
+
+              $ambil = $koneksi->query("SELECT * FROM pembeli WHERE email_pembeli = '$_POST[email]' AND  password_pembeli = '$_POST[password]' ");
+
+              // ngitung akun yang terambil
+              $akunYangCocok = $ambil->num_rows;
+
+              if($akunYangCocok == 1){
+                // anda sudah login
+                // mendapatkan akun dalam bentuk array
+                $akun = $ambil->fetch_assoc();
+
+                // simpan di session pelanggan
+                $_SESSION['pembeli'] = $akun;
+                echo "<div class='alert alert-info'>Login sukses</div>";
+                echo "<meta http-equiv='refresh' content='1;url=profil.php'>";
+              }else{
+              // }anda gagal login
+                echo "<div class='alert alert-danger'>Login gagal</div>";
+              }
+            }
+          ?>
+
+          <form action="" method="post">
           
             <div class="field-wrap">
             <label>
               Alamat Email<span class="req">*</span>
             </label>
-            <input type="email"required autocomplete="off"/>
+            <input type="email" name="email" required autocomplete="off"/>
           </div>
           
           <div class="field-wrap">
             <label>
               Password<span class="req">*</span>
             </label>
-            <input type="password"required autocomplete="off"/>
+            <input type="password" name="password" required autocomplete="off"/>
           </div>
           
-          <p class="forgot"><a href="#">Belum Punya Akun?</a></p>
+          <p class="forgot"><a href="daftar.php">Belum Punya Akun?</a></p>
           
-          <button class="button button-block">Log In</button>
+          <button class="button button-block" name="login_pembeli">Log In</button>
           
           </form>
 
@@ -120,24 +151,50 @@
         
         <div id="mugee">   
           <h1>Login Mugee</h1>
+
+          <?php 
+            // jika tombol login ditekan
+            if (isset($_POST['login_mugee'])){
+              // lakukan query cek akun dari tabel pelanggan
+
+              $ambil = $koneksi->query("SELECT * FROM mugee WHERE email_mugee = '$_POST[email]' AND  password_mugee = '$_POST[password]' ");
+
+              // ngitung akun yang terambil
+              $akunYangCocok = $ambil->num_rows;
+
+              if($akunYangCocok == 1){
+                // anda sudah login
+                // mendapatkan akun dalam bentuk array
+                $akun = $ambil->fetch_assoc();
+
+                // simpan di session pelanggan
+                $_SESSION['mugee'] = $akun;
+                echo "<div class='alert alert-info'>Login sukses</div>";
+                echo "<meta http-equiv='refresh' content='1;url=mugee/index.php'>";
+              }else{
+              // }anda gagal login
+                echo "<div class='alert alert-danger'>Login gagal</div>";
+              }
+            }
+          ?>
           
-          <form action="/" method="post">
+          <form action="" method="post">
           
             <div class="field-wrap">
             <label>
               Alamat Email<span class="req">*</span>
             </label>
-            <input type="email"required autocomplete="off"/>
+            <input type="email" name="email" required autocomplete="off"/>
           </div>
           
           <div class="field-wrap">
             <label>
               Password<span class="req">*</span>
             </label>
-            <input type="password"required autocomplete="off"/>
+            <input type="password" name="password" required autocomplete="off"/>
           </div>
           
-          <button class="button button-block"/>Log In</button>
+          <button class="button button-block" name="login_mugee" />Log In</button>
           
           </form>
 
