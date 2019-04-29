@@ -1,6 +1,13 @@
+<!-- /**
+  * Tampilan login , sebagai interface untuk login dari pengguna dan juga mugee
+  * @author M.Khairul Ramadhan
+**/ -->
 <?php 
+  //memulai session yang berguna untuk menyimpan data sementara
   session_start();
-  $koneksi = new mysqli("localhost", "root", "", "mugon");
+
+  //membuat koneksi ke database
+  include('koneksi.php');
 ?>
 
 <!DOCTYPE html>
@@ -50,10 +57,6 @@
             </a>
           </div>
           <div class="col-xl-6 col-lg-5">
-            <!-- <form class="header-search-form">
-              <input type="text" placeholder="Search on divisima ....">
-              <button><i class="flaticon-search"></i></button>
-            </form> -->
           </div>
           <div class="col-xl-4 col-lg-5">
             <div class="user-panel">
@@ -99,7 +102,8 @@
         <div id="pembeli">   
           <h1>Login Pembeli</h1>
           
-          <?php 
+          <!-- bagian fungsi untuk login pembeli -->
+          <?php      
             // jika tombol login ditekan
             if (isset($_POST['login_pembeli'])){
               // lakukan query cek akun dari tabel pelanggan
@@ -152,6 +156,7 @@
         <div id="mugee">   
           <h1>Login Mugee</h1>
 
+          <!-- bagian fungsi untuk login mugee -->
           <?php 
             // jika tombol login ditekan
             if (isset($_POST['login_mugee'])){
@@ -221,19 +226,16 @@
           <div class="footer-widget about-widget">
             <h2>Questions</h2>
             <ul>
-              <li><a href="">About Us</a></li>
-              <li><a href="">Track Orders</a></li>
-              <li><a href="">Returns</a></li>
-              <li><a href="">Jobs</a></li>
-              <li><a href="">Shipping</a></li>
-              <li><a href="">Blog</a></li>
+              <li><a href="">Tentang</a></li>
+              <li><a href="">Pembelian</a></li>
+              <li><a href="">Pengembalian</a></li>
+              <li><a href="">Pekerjaan</a></li>
+              <li><a href="">Pemesanan</a></li>
             </ul>
             <ul>
               <li><a href="">Partners</a></li>
               <li><a href="">Bloggers</a></li>
               <li><a href="">Support</a></li>
-              <li><a href="">Terms of Use</a></li>
-              <li><a href="">Press</a></li>
             </ul>
           </div>
         </div>
@@ -242,7 +244,7 @@
             <h2>Questions</h2>
             <div class="fw-latest-post-widget">
               <div class="lp-item">
-                <div class="lp-thumb set-bg" data-setbg="img/blog-thumbs/1.jpg"></div>
+                <div class="lp-thumb set-bg" data-setbg="img/Ikan/bandeng.jpg"></div>
                 <div class="lp-content">
                   <h6>Ikan Tebaru</h6>
                   <span>Oct 21, 2018</span>
@@ -250,7 +252,7 @@
                 </div>
               </div>
               <div class="lp-item">
-                <div class="lp-thumb set-bg" data-setbg="img/blog-thumbs/2.jpg"></div>
+                <div class="lp-thumb set-bg" data-setbg="img/Ikan/kakap.jpg"></div>
                 <div class="lp-content">
                   <h6>Ikan terbanyak</h6>
                   <span>Oct 21, 2018</span>
