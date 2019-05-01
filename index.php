@@ -98,13 +98,16 @@
 	<!-- bagian halaman seluncur/bergeser -->
 	<section class="hero-section">
 		<div class="hero-slider owl-carousel">
-			<?php while( $variabel = mysqli_fetch_assoc($tampilIkan)){ ?>
+			<?php
+			$batas = mysqli_num_rows($tampilIkan);
+			while($variabel = mysqli_fetch_assoc($tampilIkan)) {?>
+			<?php if (!($batas>4)){?>
 			<div class="hs-item set-bg" data-setbg="img/Ikan/<?php echo $variabel['gambar_ikan'];?>">
 				<div class="container">
 					<div class="row">
 						<div class="col-xl-6 col-lg-7 text-white">
 							<span>Ikan Terbaru</span>
-							<?php echo "<h2>".$variabel ['nama_ikan']."</h2>"?>;
+							<?php echo "<h2>".$variabel ['nama_ikan']."</h2>"?>
 							<p>Ikan Tuna masih segar, ayo dibeli jangan sampai kehabisan, sisa stok hanya 10kg.</p>
 							<a href="detail_ikan.php?id=<?php echo $variabel ['id_ikan'] ?>" class="site-btn sb-line">Lihat</a>
 							<a href="beli.php?id=<?php echo $variabel['id_ikan']?>" class="site-btn sb-white">Beli Sekarang</a>
@@ -118,6 +121,7 @@
 				</div>
 			</div>
 			<?php } ?>
+			<?php $batas--;}?>
 		<div class="container">
 			<div class="slide-num-holder" id="snh-1"></div>
 		</div>
@@ -169,7 +173,9 @@
 			<?php 	
 				$sql = "SELECT * FROM ikan";
 				$tampilIkan = mysqli_query($ikan,$sql);
+				$batas = mysqli_num_rows($tampilIkan);
 				while($variabel = mysqli_fetch_assoc($tampilIkan)){ ?>
+				<?php if (!($batas > 6)) { ?>
 				<div class="product-item">
 					<div class="pi-pic">	
 						<a href="detail_ikan.php?id=<?php echo $variabel['id_ikan']?>"><img src="img/Ikan/<?php echo $variabel['gambar_ikan'];?>"alt="tampil"></a>
@@ -183,6 +189,7 @@
 					</div>
 				</div>
 			<?php }?>
+			<?php $batas--; }?>
 			</div>
 		</div>
 	</section>
