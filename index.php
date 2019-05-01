@@ -51,7 +51,7 @@
 						<div class="user-panel">
 							<div class="up-item">
 								<i class="flaticon-profile"></i>
-								<a href="login.php">Login</a>atau <a href="daftar.php">Daftar</a>
+								<a href="login.php">Login</a> atau <a href="daftar.php">Daftar</a>
 							</div>
 							<div class="up-item">
 								<div class="shopping-card">
@@ -122,6 +122,7 @@
 			</div>
 			<?php } ?>
 			<?php $batas--;}?>
+			</div>
 		<div class="container">
 			<div class="slide-num-holder" id="snh-1"></div>
 		</div>
@@ -177,7 +178,8 @@
 				while($variabel = mysqli_fetch_assoc($tampilIkan)){ ?>
 				<?php if (!($batas > 6)) { ?>
 				<div class="product-item">
-					<div class="pi-pic">	
+					<div class="pi-pic">
+						<div class="tag-sale">STOK: <?php echo $variabel['stok_ikan']; ?>Kg</div>		
 						<a href="detail_ikan.php?id=<?php echo $variabel['id_ikan']?>"><img src="img/Ikan/<?php echo $variabel['gambar_ikan'];?>"alt="tampil"></a>
 						<div class="pi-links">
 							<a href="beli.php?id=<?php echo $variabel['id_ikan']?>" class="add-card"><i class="flaticon-bag"></i><span>Beli Sekarang</span></a>
@@ -210,7 +212,7 @@
 				<div class="col-lg-3 col-sm-6">
 					<div class="product-item">
 						<div class="pi-pic">
-							<div class="tag-sale">STOK: 10kg</div>
+							<div class="tag-sale">STOK: <?php echo $variabel['stok_ikan']; ?>Kg</div>	
 							<a href="detail_ikan.php?id=<?php echo $variabel['id_ikan']?>"><img src="img/Ikan/<?php echo $variabel['gambar_ikan'];?>" alt=""></a>
 							<div class="pi-links">
 								<a href="beli.php?id=<?php echo $variabel['id_ikan']?>" class="add-card"><i class="flaticon-bag"></i><span>Beli Sekarang</span></a>
@@ -256,47 +258,6 @@
 					</div>
 				</div>
 				<div class="col-lg-3 col-sm-6">
-					<div class="footer-widget about-widget">
-						<h2>Questions</h2>
-						<ul>
-							<li><a href="">About Us</a></li>
-							<li><a href="">Track Orders</a></li>
-							<li><a href="">Returns</a></li>
-							<li><a href="">Jobs</a></li>
-							<li><a href="">Shipping</a></li>
-							<li><a href="">Blog</a></li>
-						</ul>
-						<ul>
-							<li><a href="">Partners</a></li>
-							<li><a href="">Bloggers</a></li>
-							<li><a href="">Support</a></li>
-							<li><a href="">Terms of Use</a></li>
-							<li><a href="">Press</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-sm-6">
-					<div class="footer-widget about-widget">
-						<h2>Questions</h2>
-						<div class="fw-latest-post-widget">
-							<div class="lp-item">
-								<div class="lp-thumb set-bg" data-setbg="img/blog-thumbs/1.jpg"></div>
-								<div class="lp-content">
-									<h6>Ikan Tebaru</h6>
-									<span>Oct 21, 2018</span>
-									<a href="#" class="readmore">Read More</a>
-								</div>
-							</div>
-							<div class="lp-item">
-								<div class="lp-thumb set-bg" data-setbg="img/blog-thumbs/2.jpg"></div>
-								<div class="lp-content">
-									<h6>Ikan terbanyak</h6>
-									<span>Oct 21, 2018</span>
-									<a href="#" class="readmore">Read More</a>
-								</div>
-							</div>
-						</div>
-					</div>
 				</div>
 				<div class="col-lg-3 col-sm-6">
 					<div class="footer-widget contact-widget">
