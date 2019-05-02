@@ -1,8 +1,12 @@
+<!-- Berikut merupakan suatu profil dari halaman mugee yang memiliki fiture update profil mugee
+  @outhor: Raisya Husna Agustin 
+-->
+
 <?php
   session_start();
-  $koneksi = new mysqli("localhost", "root", "", "mugon");
+  $koneksi = new mysqli("localhost", "root", "", "mugon");    //koneksi ke database
 
-    if(!isset($_SESSION['mugee'])){
+    if(!isset($_SESSION['mugee'])){         //jika belum login maka akan dialihkan kehalaman login
 		echo "<script> alert('anda harus login .!');</script>";
 		echo "<script>location='../login.php';</script>";
 	}
@@ -55,7 +59,7 @@
 				<div class="row">
 					<div class="col-lg-2 text-center text-lg-left">
 						<!-- logo -->
-						<a href="./index.html" class="site-logo">
+						<a href="index.php" class="site-logo">
 							<img src="../img/logo.png" alt="">
 						</a>
 					</div>
@@ -106,7 +110,7 @@
 
 					<?php
 
-						if (isset($_POST['kirim'])) {
+						if (isset($_POST['kirim'])) { // jika tombol simpan ditekan maka akan teruodate ke database
 							$namafoto = $_FILES['foto']['name'];
 							$lokasifoto = $_FILES['foto']['tmp_name'];
 							//jika foto dirubah
@@ -162,48 +166,8 @@
 					</div>
 				</div>
 				<div class="col-lg-3 col-sm-6">
-					<div class="footer-widget about-widget">
-						<h2>Questions</h2>
-						<ul>
-							<li><a href="">About Us</a></li>
-							<li><a href="">Track Orders</a></li>
-							<li><a href="">Returns</a></li>
-							<li><a href="">Jobs</a></li>
-							<li><a href="">Shipping</a></li>
-							<li><a href="">Blog</a></li>
-						</ul>
-						<ul>
-							<li><a href="">Partners</a></li>
-							<li><a href="">Bloggers</a></li>
-							<li><a href="">Support</a></li>
-							<li><a href="">Terms of Use</a></li>
-							<li><a href="">Press</a></li>
-						</ul>
-					</div>
 				</div>
-				<div class="col-lg-3 col-sm-6">
-					<div class="footer-widget about-widget">
-						<h2>Questions</h2>
-						<div class="fw-latest-post-widget">
-							<div class="lp-item">
-								<div class="lp-thumb set-bg" data-setbg="img/blog-thumbs/1.jpg"></div>
-								<div class="lp-content">
-									<h6>Ikan Tebaru</h6>
-									<span>Oct 21, 2018</span>
-									<a href="#" class="readmore">Read More</a>
-								</div>
-							</div>
-							<div class="lp-item">
-								<div class="lp-thumb set-bg" data-setbg="img/blog-thumbs/2.jpg"></div>
-								<div class="lp-content">
-									<h6>Ikan terbanyak</h6>
-									<span>Oct 21, 2018</span>
-									<a href="#" class="readmore">Read More</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+
 				<div class="col-lg-3 col-sm-6">
 					<div class="footer-widget contact-widget">
 						<h2>Questions</h2>
