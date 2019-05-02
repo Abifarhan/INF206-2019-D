@@ -1,6 +1,13 @@
+<!-- 
+/**
+  * Halaman ini berguna untuk pembeli melakukan pendaftaran ke dalam aplikasi agar dapat melakukan login ke aplikasi.
+  *@author : M.Khairul Ramadhan , 02-05-2019
+  */ 
+-->
+
 <?php 
-  session_start();
-  $koneksi = new mysqli("localhost", "root", "", "mugon");
+  session_start();      //membuka session
+  $koneksi = new mysqli("localhost", "root", "", "mugon");    //membuat koneksi ke database
 ?>
 
 <!DOCTYPE html>
@@ -102,19 +109,20 @@
     <div class="tab-content">   
       <h1>Daftar Disini</h1>
 
+      <!-- untuk memasukan data kedalam database -->
       <?php
 
         if (isset($_POST['daftar'])) {
           $koneksi->query("INSERT INTO pembeli (nama_pembeli,email_pembeli,password_pembeli,no_hp_pembeli,alamat_pembeli) VALUES('$_POST[nama]','$_POST[email]','$_POST[password]','$_POST[no_hp]','$_POST[alamat]') ");
 
           echo "<div class='alert alert-info'>Anda sudah bisa login sekarang</div>";
-          echo " <meta http-equiv='refresh' content='l';url=login.php'>";
+          echo " <meta http-equiv='refresh' content='l';url=login.php'>";   //mengalihkan halaman
 
         } 
 
       ?>
 
-      <form method="post">
+      <form method="post">    <!-- bagian form -->
 
         <div class="top-row">
           <div class="field-wrap">
@@ -159,7 +167,7 @@
 
       </form>
     </div>
-  </div><!-- tab-content -->
+  </div><!-- tab-konten -->
 
 
 
@@ -167,7 +175,7 @@
   <section class="footer-section">
     <div class="container">
       <div class="footer-logo text-center">
-        <a href="index.html"><img class="site-logo" src="./img/logo.png" alt=""></a>
+        <a href="index.php"><img class="site-logo" src="./img/logo.png" alt=""></a>
       </div>
       <div class="row">
         <div class="col-lg-3 col-sm-6">
