@@ -1,7 +1,12 @@
+<?php 
+  session_start();
+  $koneksi = new mysqli("localhost", "root", "", "mugon");
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MugOn | Login</title>
+  <title>MugOn | Daftar</title>
   <meta charset="UTF-8">
   <meta name="description" content=" Divisima | eCommerce Template">
   <meta name="keywords" content="divisima, eCommerce, creative, html">
@@ -40,28 +45,25 @@
         <div class="row">
           <div class="col-lg-2 text-center text-lg-left">
             <!-- logo -->
-            <a href="./index.html" class="site-logo">
+            <a href="index.php" class="site-logo">
               <img src="img/logo.png" alt="">
             </a>
           </div>
           <div class="col-xl-6 col-lg-5">
-            <!-- <form class="header-search-form">
-              <input type="text" placeholder="Search on divisima ....">
-              <button><i class="flaticon-search"></i></button>
-            </form> -->
+
           </div>
           <div class="col-xl-4 col-lg-5">
             <div class="user-panel">
               <div class="up-item">
                 <i class="flaticon-profile"></i>
-                <a href="#">Login</a> atau <a href="#">Daftar</a>
+                <a href="login.php">Login</a> atau <a href="daftar.php">Daftar</a>
               </div>
               <div class="up-item">
                 <div class="shopping-card">
                   <i class="flaticon-bag"></i>
                   <span>0</span>
                 </div>
-                <a href="#">Keranjang Belanja</a>
+                <a href="keranjang.php">Keranjang Belanja</a>
               </div>
             </div>
           </div>
@@ -72,15 +74,27 @@
       <div class="container">
         <!-- bagian menu/ navigasi -->
         <ul class="main-menu">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">MungOn?</a></li>
-          <li><a href="#">Metode Transaksi</a></li>
-          <li><a href="contact.html">Kontak</a></li>
+          <li><a href="index.php">Home</a></li>
+          <li><a href="tentang.php">MungOn?</a></li>
+          <li><a href="metode.php">Metode Transaksi</a></li>
+          <li><a href="kontak.php">Kontak</a></li>
         </ul>
       </div>
     </nav>
   </header>
   <!-- akhir bagian dari kepala/atas -->
+
+  <!-- Page info -->
+  <div class="page-top-info">
+    <div class="container">
+      <h4>Daftar Sekarang</h4>
+      <div class="site-pagination">
+        <a href="index.php">Home</a> /
+        <a href="daftar.php">Daftar</a>
+      </div>
+    </div>
+  </div>
+  <!-- Page info end -->
 
 
   <div class="form">
@@ -88,21 +102,33 @@
     <div class="tab-content">   
       <h1>Daftar Disini</h1>
 
-      <form action="/" method="post">
+      <?php
+
+        if (isset($_POST['daftar'])) {
+          $koneksi->query("INSERT INTO pembeli (nama_pembeli,email_pembeli,password_pembeli,no_hp_pembeli,alamat_pembeli) VALUES('$_POST[nama]','$_POST[email]','$_POST[password]','$_POST[no_hp]','$_POST[alamat]') ");
+
+          echo "<div class='alert alert-info'>Anda sudah bisa login sekarang</div>";
+          echo " <meta http-equiv='refresh' content='l';url=login.php'>";
+
+        } 
+
+      ?>
+
+      <form method="post">
 
         <div class="top-row">
           <div class="field-wrap">
             <label>
               Nama<span class="req">*</span>
             </label>
-            <input type="text" required autocomplete="off" />
+            <input type="text" name="nama" required autocomplete="off" />
           </div>
 
           <div class="field-wrap">
             <label>
               No Hp.<span class="req">*</span>
             </label>
-            <input type="text"required autocomplete="off"/>
+            <input type="text" name="no_hp" required autocomplete="off"/>
           </div>
         </div>
 
@@ -110,24 +136,26 @@
           <label>
             Alamat Rumah<span class="req">*</span>
           </label>
-          <input type="text"required autocomplete="off"/>
+          <input type="text" name="alamat" required autocomplete="off"/>
         </div>
 
         <div class="field-wrap">
           <label>
             Alamat Email<span class="req">*</span>
           </label>
-          <input type="email"required autocomplete="off"/>
+          <input type="email" name="email" required autocomplete="off"/>
         </div>
 
         <div class="field-wrap">
           <label>
             Password<span class="req">*</span>
           </label>
-          <input type="password"required autocomplete="off"/>
+          <input type="password" name="password" required autocomplete="off"/>
         </div>
 
-        <button type="submit" class="button button-block"/>Get Started</button>
+        <p class="forgot"><a href="login.php">Sudah Punya Akun?, Login disini</a></p>
+
+        <button type="submit" name="daftar" class="button button-block"/>Daftar Sekarang</button>
 
       </form>
     </div>
@@ -149,47 +177,7 @@
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">
-          <div class="footer-widget about-widget">
-            <h2>Questions</h2>
-            <ul>
-              <li><a href="">About Us</a></li>
-              <li><a href="">Track Orders</a></li>
-              <li><a href="">Returns</a></li>
-              <li><a href="">Jobs</a></li>
-              <li><a href="">Shipping</a></li>
-              <li><a href="">Blog</a></li>
-            </ul>
-            <ul>
-              <li><a href="">Partners</a></li>
-              <li><a href="">Bloggers</a></li>
-              <li><a href="">Support</a></li>
-              <li><a href="">Terms of Use</a></li>
-              <li><a href="">Press</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="footer-widget about-widget">
-            <h2>Questions</h2>
-            <div class="fw-latest-post-widget">
-              <div class="lp-item">
-                <div class="lp-thumb set-bg" data-setbg="img/blog-thumbs/1.jpg"></div>
-                <div class="lp-content">
-                  <h6>Ikan Tebaru</h6>
-                  <span>Oct 21, 2018</span>
-                  <a href="#" class="readmore">Read More</a>
-                </div>
-              </div>
-              <div class="lp-item">
-                <div class="lp-thumb set-bg" data-setbg="img/blog-thumbs/2.jpg"></div>
-                <div class="lp-content">
-                  <h6>Ikan terbanyak</h6>
-                  <span>Oct 21, 2018</span>
-                  <a href="#" class="readmore">Read More</a>
-                </div>
-              </div>
-            </div>
-          </div>
+      
         </div>
         <div class="col-lg-3 col-sm-6">
           <div class="footer-widget contact-widget">
