@@ -1,15 +1,15 @@
 <!-- Berikut merupakan suatu profil dari halaman mugee yang memiliki fiture update profil mugee
-  @outhor: Raisya Husna Agustin
+ @outhor: Raisya Husna Agustin
 -->
 
 <?php
   session_start();
-  $koneksi = new mysqli("localhost", "root", "", "mugon");    //koneksi ke database
+  $koneksi = new mysqli("localhost", "root", "", "mugon"); //koneksi ke database
 
-  if(!isset($_SESSION['mugee'])){         //jika belum login maka akan dialihkan kehalaman login
-		echo "<script> alert('anda harus login .!');</script>";
-		echo "<script>location='../login.php';</script>";
-	}
+  //   if(!isset($_SESSION['mugee'])){
+	// 	echo "<script> alert('anda harus login .!');</script>";
+	// 	echo "<script>location='../login.php';</script>";
+	// }
 
   //ambil id dari session
   $id_mugee = $_SESSION['mugee']['id_mugee'];
@@ -65,6 +65,21 @@
 					</div>
 					<div class="col-xl-6 col-lg-5">
 					</div>
+					<div class="col-xl-4 col-lg-5">
+						<div class="user-panel">
+							<div class="up-item">
+								<i class="flaticon-profile"></i>
+								<a href="../login.php">Login</a>
+							</div>
+							<div class="up-item">
+								<div class="shopping-card">
+									<i class="flaticon-bag"></i>
+									<span>0</span>
+								</div>
+								<a href="pembelian.php">Pesanan</a>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -92,14 +107,14 @@
 
 						<div class="row address-inputs">
 							<div class="col-md-6">
-								<input type="text" name="nama" placeholder="Masukkan Nama"value="<?php echo $pecah['nama_mugee'] ?>">
+								<input type="text" name="nama" value="<?php echo $pecah['nama_mugee'] ?>">
 							</div>
 							<div class="col-md-6">
-								<input type="text" name="email" placeholder="email" value="<?php echo $pecah['email_mugee'] ?>" readonly>
+								<input type="text" name="email" value="<?php echo $pecah['email_mugee'] ?>" readonly>
 							</div>
 							<div class="col-md-12">
-								<input type="text" name="alamat"placeholder="alamat" value="<?php echo $pecah['alamat_mugee'] ?>">
-								<input type="text" name="no_hp" placeholder="no_hp"value="<?php echo $pecah['no_hp_mugee'] ?>">
+								<input type="text" name="alamat" value="<?php echo $pecah['alamat_mugee'] ?>">
+								<input type="text" name="no_hp" value="<?php echo $pecah['no_hp_mugee'] ?>">
 								<p> Upload Foto</p>
 								<input type="file" name="foto" >
 							</div>
@@ -126,7 +141,7 @@
 									no_hp_mugee ='$_POST[no_hp]'
 									WHERE id_mugee='$id_mugee'");
 							}
-							echo "<script>alert('data produk telah diubah');</script>";
+							echo "<script>alert('data anda telah diubah');</script>";
 							echo "<script>location='index.php';</script>";
 						}
 
@@ -156,7 +171,7 @@
 	<section class="footer-section">
 		<div class="container">
 			<div class="footer-logo text-center">
-				<a href="index.html"><img class="site-logo" src="../img/logo.png" alt=""></a>
+				<a href="index.php"><img class="site-logo" src="../img/logo.png" alt=""></a>
 			</div>
 			<div class="row">
 				<div class="col-lg-3 col-sm-6">
