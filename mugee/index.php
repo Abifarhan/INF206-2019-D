@@ -1,12 +1,12 @@
 <!-- Berikut merupakan suatu profil dari halaman mugee yang memiliki fiture update profil mugee
-  @outhor: Raisya Husna Agustin 
+  @outhor: Raisya Husna Agustin
 -->
 
 <?php
   session_start();
   $koneksi = new mysqli("localhost", "root", "", "mugon");    //koneksi ke database
 
-    if(!isset($_SESSION['mugee'])){         //jika belum login maka akan dialihkan kehalaman login
+  if(!isset($_SESSION['mugee'])){         //jika belum login maka akan dialihkan kehalaman login
 		echo "<script> alert('anda harus login .!');</script>";
 		echo "<script>location='../login.php';</script>";
 	}
@@ -92,14 +92,14 @@
 
 						<div class="row address-inputs">
 							<div class="col-md-6">
-								<input type="text" name="nama" value="<?php echo $pecah['nama_mugee'] ?>">
+								<input type="text" name="nama" placeholder="Masukkan Nama"value="<?php echo $pecah['nama_mugee'] ?>">
 							</div>
 							<div class="col-md-6">
-								<input type="text" name="email" value="<?php echo $pecah['email_mugee'] ?>" readonly>
+								<input type="text" name="email" placeholder="email" value="<?php echo $pecah['email_mugee'] ?>" readonly>
 							</div>
 							<div class="col-md-12">
-								<input type="text" name="alamat" value="<?php echo $pecah['alamat_mugee'] ?>">
-								<input type="text" name="no_hp" value="<?php echo $pecah['no_hp_mugee'] ?>">
+								<input type="text" name="alamat"placeholder="alamat" value="<?php echo $pecah['alamat_mugee'] ?>">
+								<input type="text" name="no_hp" placeholder="no_hp"value="<?php echo $pecah['no_hp_mugee'] ?>">
 								<p> Upload Foto</p>
 								<input type="file" name="foto" >
 							</div>
