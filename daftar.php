@@ -4,10 +4,17 @@
   *@author : M.Khairul Ramadhan , 02-05-2019
   */ 
 -->
-
 <?php 
-  session_start();      //membuka session
-  $koneksi = new mysqli("localhost", "root", "", "mugon");    //membuat koneksi ke database
+  session_start();    //membuka session
+  $koneksi = new mysqli("localhost", "root", "", "mugon");   //membuat koneksi ke database
+   if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
+    $banyak = count($_SESSION['keranjang']);
+  }
+
+  if(isset($_SESSION['pembeli'])){
+    echo "<script>location='profil.php';</script>";
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -34,12 +41,10 @@
   <link rel="stylesheet" href="css/owl.carousel.min.css"/>
   <link rel="stylesheet" href="css/animate.css"/>
   <link rel="stylesheet" href="css/style.css"/>
-  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/login.css"/>
 
 </head>
-
 <body>
-
   <!-- tampilan loading -->
   <div id="preloder">
     <div class="loader"></div>
@@ -56,24 +61,59 @@
               <img src="img/logo.png" alt="">
             </a>
           </div>
-          <div class="col-xl-6 col-lg-5">
+          <div class="col-lg-3">
 
           </div>
-          <div class="col-xl-4 col-lg-5">
+          <div class="col-lg-4">
             <div class="user-panel">
               <div class="up-item">
                 <i class="flaticon-profile"></i>
-                <a href="login.php">Login</a> atau <a href="daftar.php">Daftar</a>
+                <?php if (isset($_SESSION['pembeli'])) { ?>       <!-- untuk merubah nama ketika login -->
+                  <a href="profil.php"><?php echo $_SESSION['pembeli']['nama_pembeli']; ?></a>
+                <?php }else{ ?>
+                  <a href="login.php">Login</a> atau <a href="daftar.php">Daftar</a>
+                <?php } ?>
               </div>
               <div class="up-item">
                 <div class="shopping-card">
                   <i class="flaticon-bag"></i>
-                  <span>0</span>
+                  <span>
+                  <?php if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
+                    echo $banyak; 
+                  }else{
+                    echo '0';
+                  } ?>
+                  </span>
+
                 </div>
                 <a href="keranjang.php">Keranjang Belanja</a>
               </div>
             </div>
           </div>
+          <div class="col-lg-3">
+            <form class="form-inline mr-auto" method="post" action="">
+              <input class="form-control mr-sm-2" name="cari" type="text" placeholder="Cari Ikan" aria-label="Search">
+              <button class="btn btn-outline-secondary btn-rounded my-0" name="search" type="submit">Cari</button>
+            </form>
+          </div>
+
+          <!-- /**
+                * fungsi untuk mencari ikan
+            **/ -->
+          <?php 
+            if (isset($_POST['cari'])) {
+              $koneksi = new mysqli("localhost", "root", "", "mugon");
+              $ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
+              $pecah = $ambil->fetch_assoc(); 
+              if (!empty($pecah)) {
+                echo "<script>location='detail_ikan.php?id=".$pecah['id_ikan']."'</script>";  
+              }else{
+                echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
+                echo "<script>location='index.php'</script>";
+              }
+            }
+          ?>
+
         </div>
       </div>
     </div>
@@ -82,6 +122,7 @@
         <!-- bagian menu/ navigasi -->
         <ul class="main-menu">
           <li><a href="index.php">Home</a></li>
+          <li><a href="riwayat.php">Riwayat</a></li>
           <li><a href="tentang.php">MungOn?</a></li>
           <li><a href="metode.php">Metode Transaksi</a></li>
           <li><a href="kontak.php">Kontak</a></li>
@@ -109,20 +150,20 @@
     <div class="tab-content">   
       <h1>Daftar Disini</h1>
 
-      <!-- untuk memasukan data kedalam database -->
+      <!-- untuki memasukan data kedalam database -->
       <?php
 
         if (isset($_POST['daftar'])) {
           $koneksi->query("INSERT INTO pembeli (nama_pembeli,email_pembeli,password_pembeli,no_hp_pembeli,alamat_pembeli) VALUES('$_POST[nama]','$_POST[email]','$_POST[password]','$_POST[no_hp]','$_POST[alamat]') ");
 
           echo "<div class='alert alert-info'>Anda sudah bisa login sekarang</div>";
-          echo " <meta http-equiv='refresh' content='l';url=login.php'>";   //mengalihkan halaman
+          echo " <meta http-equiv='refresh' content='l';url=login.php'>";
 
         } 
 
       ?>
 
-      <form method="post">    <!-- bagian form -->
+      <form method="post">
 
         <div class="top-row">
           <div class="field-wrap">
@@ -167,7 +208,7 @@
 
       </form>
     </div>
-  </div><!-- tab-konten -->
+  </div><!-- tab-content -->
 
 
 

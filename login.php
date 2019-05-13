@@ -5,9 +5,15 @@
 <?php 
   //memulai session yang berguna untuk menyimpan data sementara
   session_start();
+  $koneksi = new mysqli("localhost", "root", "", "mugon");
+  if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
+    $banyak = count($_SESSION['keranjang']);
+  }
 
-  //membuat koneksi ke database
-  include('koneksi.php');
+  if(isset($_SESSION['pembeli'])){
+    echo "<script>location='profil.php';</script>";
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -34,12 +40,10 @@
   <link rel="stylesheet" href="css/owl.carousel.min.css"/>
   <link rel="stylesheet" href="css/animate.css"/>
   <link rel="stylesheet" href="css/style.css"/>
-  <link rel="stylesheet" href="css/login.css">
+  <link rel="stylesheet" href="css/login.css"/>
 
 </head>
-
 <body>
-
   <!-- tampilan loading -->
   <div id="preloder">
     <div class="loader"></div>
@@ -56,23 +60,57 @@
               <img src="img/logo.png" alt="">
             </a>
           </div>
-          <div class="col-xl-6 col-lg-5">
+          <div class="col-lg-3">
+
           </div>
-          <div class="col-xl-4 col-lg-5">
+          <div class="col-lg-4">
             <div class="user-panel">
               <div class="up-item">
                 <i class="flaticon-profile"></i>
-                <a href="login.php">Login</a> atau <a href="daftar.php">Daftar</a>
+                <?php if (isset($_SESSION['pembeli'])) { ?>
+                  <a href="profil.php"><?php echo $_SESSION['pembeli']['nama_pembeli']; ?></a>
+                <?php }else{ ?>
+                  <a href="login.php">Login</a> atau <a href="daftar.php">Daftar</a>
+                <?php } ?>
               </div>
               <div class="up-item">
                 <div class="shopping-card">
                   <i class="flaticon-bag"></i>
-                  <span>0</span>
+                  <span>
+                  <?php if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
+                    echo $banyak; 
+                  }else{
+                    echo '0';
+                  } ?>
+                  </span>
+
                 </div>
                 <a href="keranjang.php">Keranjang Belanja</a>
               </div>
             </div>
           </div>
+          <div class="col-lg-3">
+            <form class="form-inline mr-auto" method="post" action="">
+              <input class="form-control mr-sm-2" name="cari" type="text" placeholder="Cari Ikan" aria-label="Search">
+              <button class="btn btn-outline-secondary btn-rounded my-0" name="search" type="submit">Cari</button>
+            </form>
+          </div>
+
+          <!-- fungsi search ikan untuk mencari ikan -->
+          <?php 
+            if (isset($_POST['cari'])) {
+              $koneksi = new mysqli("localhost", "root", "", "mugon");
+              $ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
+              $pecah = $ambil->fetch_assoc(); 
+              if (!empty($pecah)) {
+                echo "<script>location='detail_ikan.php?id=".$pecah['id_ikan']."'</script>";  
+              }else{
+                echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
+                echo "<script>location='index.php'</script>";
+              }
+            }
+          ?>
+
         </div>
       </div>
     </div>
@@ -81,6 +119,7 @@
         <!-- bagian menu/ navigasi -->
         <ul class="main-menu">
           <li><a href="index.php">Home</a></li>
+          <li><a href="riwayat.php">Riwayat</a></li>
           <li><a href="tentang.php">MungOn?</a></li>
           <li><a href="metode.php">Metode Transaksi</a></li>
           <li><a href="kontak.php">Kontak</a></li>
@@ -102,8 +141,10 @@
         <div id="pembeli">   
           <h1>Login Pembeli</h1>
           
-          <!-- bagian fungsi untuk login pembeli -->
-          <?php      
+          <!-- /**
+                * Fungsi untuk login dan mengecek akun di database
+                ***/ -->
+          <?php 
             // jika tombol login ditekan
             if (isset($_POST['login_pembeli'])){
               // lakukan query cek akun dari tabel pelanggan
@@ -156,7 +197,6 @@
         <div id="mugee">   
           <h1>Login Mugee</h1>
 
-          <!-- bagian fungsi untuk login mugee -->
           <?php 
             // jika tombol login ditekan
             if (isset($_POST['login_mugee'])){
@@ -213,7 +253,7 @@
   <section class="footer-section">
     <div class="container">
       <div class="footer-logo text-center">
-        <a href="index.html"><img class="site-logo" src="./img/logo.png" alt=""></a>
+        <a href="index.php"><img class="site-logo" src="img/logo.png" alt=""></a>
       </div>
       <div class="row">
         <div class="col-lg-3 col-sm-6">
@@ -223,44 +263,6 @@
           </div>
         </div>
         <div class="col-lg-3 col-sm-6">
-          <div class="footer-widget about-widget">
-            <h2>Questions</h2>
-            <ul>
-              <li><a href="">Tentang</a></li>
-              <li><a href="">Pembelian</a></li>
-              <li><a href="">Pengembalian</a></li>
-              <li><a href="">Pekerjaan</a></li>
-              <li><a href="">Pemesanan</a></li>
-            </ul>
-            <ul>
-              <li><a href="">Partners</a></li>
-              <li><a href="">Bloggers</a></li>
-              <li><a href="">Support</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="footer-widget about-widget">
-            <h2>Questions</h2>
-            <div class="fw-latest-post-widget">
-              <div class="lp-item">
-                <div class="lp-thumb set-bg" data-setbg="img/Ikan/bandeng.jpg"></div>
-                <div class="lp-content">
-                  <h6>Ikan Tebaru</h6>
-                  <span>Oct 21, 2018</span>
-                  <a href="#" class="readmore">Read More</a>
-                </div>
-              </div>
-              <div class="lp-item">
-                <div class="lp-thumb set-bg" data-setbg="img/Ikan/kakap.jpg"></div>
-                <div class="lp-content">
-                  <h6>Ikan terbanyak</h6>
-                  <span>Oct 21, 2018</span>
-                  <a href="#" class="readmore">Read More</a>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="col-lg-3 col-sm-6">
           <div class="footer-widget contact-widget">
