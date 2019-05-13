@@ -1,4 +1,5 @@
 <?php
+// dimulainya sesi
 session_start();
 if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 	$banyak = count($_SESSION['keranjang']);
@@ -51,7 +52,6 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 						</a>
 					</div>
 					<div class="col-lg-3">
-
 					</div>
 					<div class="col-lg-4">
 						<div class="user-panel">
@@ -85,8 +85,6 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 							<button class="btn btn-outline-secondary btn-rounded my-0" name="search" type="submit">Cari</button>
 						</form>
 					</div>
-
-					<!-- fungsi search ikan -->
 					<!-- ini fungsi untuk mencari ikan -->
 					<?php
 					if (isset($_POST['cari'])) {
@@ -119,6 +117,7 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 	</header>
 	<!-- akhir bagian dari kepala/atas -->
 
+	<!-- pengkoneksian php ke database -->
 	<?php
 	$servername = "localhost";
 	$username = "root";
