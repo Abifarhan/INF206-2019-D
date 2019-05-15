@@ -1,13 +1,12 @@
-<!-- 
-	Halaman ini berfungsi untuk mengupload ikan bagi mugee
-	@author : tedy alfariansah
- -->
+<!-- /**
+		*  Berfungsi untuk penammbahan ikan bagi mugee
+		**/ -->
 
 <?php 
   session_start();
-  $koneksi = new mysqli("localhost", "root", "", "mugon");	//penghubung ke database
+  $koneksi = new mysqli("localhost", "root", "", "mugon");
 
-  	if(!isset($_SESSION['mugee'])){				//jika mugee tidak login
+  	if(!isset($_SESSION['mugee'])){
 		echo "<script> alert('anda harus login .!');</script>";
 		echo "<script>location='../login.php';</script>";
 	}
@@ -17,7 +16,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MugOn | Tambah Ikan</title>
+	<title>MugOn | Home</title>
 	<meta charset="UTF-8">
 	<meta name="description" content=" Divisima | eCommerce Template">
 	<meta name="keywords" content="divisima, eCommerce, creative, html">
@@ -84,20 +83,19 @@
 						</a>
 					</div>
 					<div class="col-xl-6 col-lg-5">
-
 					</div>
 					<div class="col-xl-4 col-lg-5">
 						<div class="user-panel">
 							<div class="up-item">
 								<i class="flaticon-profile"></i>
-								<a href="../login.php">Login</a> atau <a href="../daftar.php">Daftar</a>
+								<a href="index.php"><?php echo $_SESSION['mugee']['nama_mugee']; ?></a>
 							</div>
 							<div class="up-item">
 								<div class="shopping-card">
 									<i class="flaticon-bag"></i>
 									<span>0</span>
 								</div>
-								<a href="keranjang.php">Keranjang Belanja</a>
+								<a href="pembelian.php">Pesanan</a>
 							</div>
 						</div>
 					</div>
@@ -111,6 +109,7 @@
 					<li><a href="index.php">Profil</a></li>
 					<li><a href="ikan.php">Ikan</a></li>
 					<li><a href="pembelian.php">Pesanan</a></li>
+					<li><a href="pesan.php">Pesan</a></li>
 				</ul>
 			</div>
 		</nav>
@@ -134,7 +133,7 @@
 								<input class="input_number" type="number" name="harga" placeholder="Harga" required autocomplete="off">
 							</div>
 							<div class="col-md-6">
-								<input class="input_number" type="number" name="stok" placeholder="Stok / Kg" required autocomplete="off">
+								<input class="input_number" type="number" name="stok" placeholder="Stok / gk" required autocomplete="off">
 							</div>
 							<div class="col-md-12">
 								<p> Upload Gambar Ikan</p>
@@ -143,9 +142,12 @@
 						</div>
 		
 						<button class="site-btn submit-order-btn" name="tambah">Tambah</button>
-					</form>
+					</form>		
+					<!-- /**
+						* Fungsi dari bagian ini adalah untuk memasukkan data ikan kedalam database
+						*/ -->
 					<?php 
-						if (isset($_POST['tambah'])) {		//untuk menyimpan ikan ke database
+						if (isset($_POST['tambah'])) {
 							$nama = $_FILES['gambar']['name'];
 							$lokasi = $_FILES['gambar']['tmp_name'];
 							
@@ -174,7 +176,7 @@
 	<section class="footer-section">
 		<div class="container">
 			<div class="footer-logo text-center">
-				<a href="index.html"><img class="site-logo" src="../img/logo.png" alt=""></a>
+				<a href="index.php"><img class="site-logo" src="../img/logo.png" alt=""></a>
 			</div>
 			<div class="row">
 				<div class="col-lg-3 col-sm-6">
