@@ -6,10 +6,10 @@
   session_start();
   $koneksi = new mysqli("localhost", "root", "", "mugon"); //koneksi ke database
 
-  //   if(!isset($_SESSION['mugee'])){
-	// 	echo "<script> alert('anda harus login .!');</script>";
-	// 	echo "<script>location='../login.php';</script>";
-	// }
+    if(!isset($_SESSION['mugee'])){
+		echo "<script> alert('anda harus login .!');</script>";
+		echo "<script>location='../login.php';</script>";
+	}
 
   //ambil id dari session
   $id_mugee = $_SESSION['mugee']['id_mugee'];
@@ -69,7 +69,7 @@
 						<div class="user-panel">
 							<div class="up-item">
 								<i class="flaticon-profile"></i>
-								<a href="../login.php">Login</a>
+								<a href="index.php"><?php echo $_SESSION['mugee']['nama_mugee']; ?></a>
 							</div>
 							<div class="up-item">
 								<div class="shopping-card">
@@ -90,6 +90,7 @@
 					<li><a href="index.php">Profil</a></li>
 					<li><a href="ikan.php">Ikan</a></li>
 					<li><a href="pembelian.php">Pesanan</a></li>
+					<li><a href="pesan.php">Pesan</a></li>
 				</ul>
 			</div>
 		</nav>
