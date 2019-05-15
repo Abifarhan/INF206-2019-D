@@ -1,7 +1,22 @@
+<?php 
+  session_start();
+  $koneksi = new mysqli("localhost", "root", "", "mugon");
+
+  	if(!isset($_SESSION['mugee'])){
+		echo "<script> alert('anda harus login .!');</script>";
+		echo "<script>location='../login.php';</script>";
+	}
+
+	$ambil = $koneksi->query("SELECT * FROM ikan WHERE id_ikan = '$_GET[id]' ");
+
+	$pecah = $ambil->fetch_assoc();
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MugOn | Ubah Ikan</title>
+	<title>MugOn | Home</title>
 	<meta charset="UTF-8">
 	<meta name="description" content=" Divisima | eCommerce Template">
 	<meta name="keywords" content="divisima, eCommerce, creative, html">
@@ -68,12 +83,16 @@
 						</a>
 					</div>
 					<div class="col-xl-6 col-lg-5">
+						<!-- <form class="header-search-form">
+							<input type="text" placeholder="Search on divisima ....">
+							<button><i class="flaticon-search"></i></button>
+						</form> -->
 					</div>
 					<div class="col-xl-4 col-lg-5">
 						<div class="user-panel">
 							<div class="up-item">
 								<i class="flaticon-profile"></i>
-								<a href="index.php"></a>
+								<a href="index.php"><?php echo $_SESSION['mugee']['nama_mugee']; ?></a>
 							</div>
 							<div class="up-item">
 								<div class="shopping-card">
@@ -107,6 +126,28 @@
 			<div class="row">
 				<div class="col-lg-12 order-2 order-lg-1">
 					<form class="checkout-form" enctype="multipart/form-data" method="post">
+
+						<?php 
+							if (isset($_POST['ubah'])) {
+
+								$namafoto = $_FILES['gambar']['name'];
+								$lokasifoto = $_FILES['gambar']['tmp_name'];
+								//jika foto dirubah
+								if (!empty($lokasifoto)) {
+									move_uploaded_file($lokasifoto, "../img/Ikan/".$namafoto);
+
+									$koneksi->query("UPDATE ikan SET nama_ikan='$_POST[nama]', harga_ikan='$_POST[harga]', keterangan='$_POST[deskripsi]', stok_ikan='$_POST[stok]', status_ikan = 'tersedia', gambar_ikan = '$namafoto'
+										WHERE id_ikan='$_GET[id]'");
+								}else{
+									$koneksi->query("UPDATE ikan SET nama_ikan='$_POST[nama]', harga_ikan='$_POST[harga]', keterangan='$_POST[deskripsi]', stok_ikan='$_POST[stok]', status_ikan = 'tersedia'
+										WHERE id_ikan='$_GET[id]'");
+								}
+
+								echo "<div class='alert alert-info'>Data tersimpan</div>";
+								echo " <meta http-equiv='refresh' content='l;url=ikan.php'>";
+
+							}
+						 ?>
 
 						<div class="cf-title">Tambah Produk Ikan</div>
 

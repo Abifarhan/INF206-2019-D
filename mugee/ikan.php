@@ -1,4 +1,12 @@
+<?php 
+  session_start();
+  $koneksi = new mysqli("localhost", "root", "", "mugon");
 
+  if(!isset($_SESSION['mugee'])){
+    echo "<script> alert('anda harus login .!');</script>";
+    echo "<script>location='../login.php';</script>";
+  }
+?>
 
 <!DOCTYPE html>
 <html>
@@ -54,7 +62,7 @@
             <div class="user-panel">
               <div class="up-item">
                 <i class="flaticon-profile"></i>
-                <a href="index.php"></a>
+                <a href="index.php"><?php echo $_SESSION['mugee']['nama_mugee']; ?></a>
               </div>
               <div class="up-item">
                 <div class="shopping-card">
@@ -98,6 +106,24 @@
         </tr>
       </thead>
       <tbody>
+        <?php $nomor=1; ?>
+        <?php $ambil=$koneksi->query("SELECT * FROM ikan"); ?>
+        <?php while ($pecah = $ambil->fetch_assoc()) { ?>
+        <tr>
+          <th scope="row"><?php echo $nomor ?></th>
+          <td><?php echo $pecah['nama_ikan'] ?></td>
+          <td><?php echo $pecah['keterangan'] ?></td>
+          <td><?php echo $pecah['harga_ikan'] ?></td>
+          <td><?php echo $pecah['stok_ikan'] ?></td>
+          <td><?php echo $pecah['status_ikan'] ?></td>
+          <td><img style="width: 100px;" src="../img/Ikan/<?php echo $pecah['gambar_ikan'] ?>" alt=""></td>
+          <td>
+            <a href="ubah_ikan.php?id=<?php echo $pecah['id_ikan']; ?>" class="btn btn-warning">Ubah</a>
+            <a href="hapus_ikan.php?id=<?php echo $pecah['id_ikan']?>" class="btn btn-danger">Hapus</a>
+          </td>
+        </tr>
+      <?php $nomor++; ?>
+      <?php } ?>
       </tbody>
     </table>
     <a href="tambah_ikan.php" class="btn btn-success">Tambah Ikan</a>
