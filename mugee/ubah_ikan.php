@@ -1,8 +1,11 @@
+<!-- halaman berikut yaitu halaman untuk mengeubah data ikan yang telah dimasukan oleh mugee 
+		@author : M.Khairul Ramadhan
+-->
 <?php 
   session_start();
   $koneksi = new mysqli("localhost", "root", "", "mugon");
 
-  	if(!isset($_SESSION['mugee'])){
+  	if(!isset($_SESSION['mugee'])){		
 		echo "<script> alert('anda harus login .!');</script>";
 		echo "<script>location='../login.php';</script>";
 	}
@@ -127,7 +130,7 @@
 				<div class="col-lg-12 order-2 order-lg-1">
 					<form class="checkout-form" enctype="multipart/form-data" method="post">
 
-						<?php 
+						<?php 		//fungsi berikut berguna untuk memasukan data yang telah diubah kedalam database
 							if (isset($_POST['ubah'])) {
 
 								$namafoto = $_FILES['gambar']['name'];
@@ -136,6 +139,7 @@
 								if (!empty($lokasifoto)) {
 									move_uploaded_file($lokasifoto, "../img/Ikan/".$namafoto);
 
+									//berikut query untuk  update
 									$koneksi->query("UPDATE ikan SET nama_ikan='$_POST[nama]', harga_ikan='$_POST[harga]', keterangan='$_POST[deskripsi]', stok_ikan='$_POST[stok]', status_ikan = 'tersedia', gambar_ikan = '$namafoto'
 										WHERE id_ikan='$_GET[id]'");
 								}else{

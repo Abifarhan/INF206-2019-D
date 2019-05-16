@@ -1,8 +1,12 @@
+<!-- /**
+      * halaman berikut untuk menampilkan ikan-ikan yang telah di upload oleh mugee
+      * @author M.Khairul Ramadhan 15-05-2019
+      **/ -->
 <?php 
   session_start();
-  $koneksi = new mysqli("localhost", "root", "", "mugon");
+  $koneksi = new mysqli("localhost", "root", "", "mugon");    //konek ke database
 
-  if(!isset($_SESSION['mugee'])){
+  if(!isset($_SESSION['mugee'])){           //fungsi untuk memastikan mugee sudah login
     echo "<script> alert('anda harus login .!');</script>";
     echo "<script>location='../login.php';</script>";
   }
@@ -53,10 +57,6 @@
             </a>
           </div>
           <div class="col-xl-6 col-lg-5">
-            <!-- <form class="header-search-form">
-              <input type="text" placeholder="Search on divisima ....">
-              <button><i class="flaticon-search"></i></button>
-            </form> -->
           </div>
           <div class="col-xl-4 col-lg-5">
             <div class="user-panel">
@@ -106,7 +106,7 @@
         </tr>
       </thead>
       <tbody>
-        <?php $nomor=1; ?>
+        <?php $nomor=1; ?>    <!-- code php berikut berguna untuk menampilkan data ke halaman ikan -->
         <?php $ambil=$koneksi->query("SELECT * FROM ikan"); ?>
         <?php while ($pecah = $ambil->fetch_assoc()) { ?>
         <tr>
