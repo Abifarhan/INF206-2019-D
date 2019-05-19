@@ -1,3 +1,17 @@
+<?php 
+	session_start();
+	$koneksi = new mysqli("localhost", "root", "", "mugon");
+
+	if(!isset($_SESSION['pembeli'])){
+		echo "<script> alert('anda harus login .!');</script>";
+		echo "<script>location='login.php';</script>";
+	}
+
+	if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
+		$banyak = count($_SESSION['keranjang']);
+	}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,13 +62,21 @@
 						<div class="user-panel">
 							<div class="up-item">
 								<i class="flaticon-profile"></i>
+								<?php if (isset($_SESSION['pembeli'])) { ?>
+									<a href="profil.php"><?php echo $_SESSION['pembeli']['nama_pembeli']; ?></a>
+								<?php }else{ ?>
 									<a href="login.php">Login</a> atau <a href="daftar.php">Daftar</a>
-								
+								<?php } ?>
 							</div>
 							<div class="up-item">
 								<div class="shopping-card">
 									<i class="flaticon-bag"></i>
 									<span>
+									<?php if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
+										echo $banyak; 
+									}else{
+									 	echo '0';
+									} ?>
 									</span>
 
 								</div>
@@ -68,6 +90,21 @@
 						  <button class="btn btn-outline-secondary btn-rounded my-0" name="search" type="submit">Cari</button>
 						</form>
 					</div>
+
+					<!-- fungsi search ikan -->
+					<?php 
+						if (isset($_POST['cari'])) {
+							$koneksi = new mysqli("localhost", "root", "", "mugon");
+							$ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
+							$pecah = $ambil->fetch_assoc();	
+							if (!empty($pecah)) {
+								echo "<script>location='detail_ikan.php?id=".$pecah['id_ikan']."'</script>";	
+							}else{
+								echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
+								echo "<script>location='index.php'</script>";
+							}
+						}
+					?>
 
 				</div>
 			</div>
@@ -126,11 +163,19 @@
 							</div>
 						</div>
 
+						<?php 
+							  //ambil id dari session
+							  $id_pembeli = $_SESSION['pembeli']['id_pembeli'];
+
+							  $ambil = $koneksi->query("SELECT * FROM pembeli WHERE id_pembeli = '$id_pembeli' ");
+							   $pecah_pembeli = $ambil->fetch_assoc();
+
+						?>
 
 						<div class="row address-inputs">
 							<div class="col-md-12">
 								<label>Alamat Saya</label>
-								<input type="text" name="alamat_saya" value="" readonly>
+								<input type="text" name="alamat_saya" value="<?php echo $pecah_pembeli['alamat_pembeli']; ?>" readonly>
 								<input type="text" name="alamat_lain" placeholder="Alamat Lainnya">
 								<input type="text" name="kota" placeholder="Kota">
 							</div>
@@ -138,7 +183,7 @@
 								<input type="text" name="kd_pos" placeholder="Kode Pos">
 							</div>
 							<div class="col-md-6">
-								<input type="text" name="no_hp" value="" readonly>
+								<input type="text" name="no_hp" value="<?php echo $pecah_pembeli['no_hp_pembeli']; ?>" readonly>
 							</div>
 						</div>
 						<div class="cf-title">Info Cara Pengiriman</div>
@@ -159,8 +204,29 @@
 						<h3>Pesanan Anda</h3>
 						<ul class="product-list">
 
+							<?php $total = 0; ?>
+							<?php if(isset($_SESSION['keranjang'])){ ?>
+							<?php foreach ($_SESSION["keranjang"] as $id_ikan => $jumlah): ?>
+								<!-- menampilkan produk -->
+							<?php 
+								$ambil = $koneksi->query("SELECT * FROM ikan WHERE id_ikan = '$id_ikan' ");
+								$pecah = $ambil->fetch_assoc();
+							 ?>	
 
-							
+							<li>
+								<div class="pl-thumb"><img src="img/Ikan/<?php echo $pecah['gambar_ikan']; ?>" alt=""></div>
+								<h6><?php echo $pecah['nama_ikan'] ?></h6>
+								<p>Rp.<?php echo number_format($pecah['harga_ikan']*$jumlah) ?>/kg</p>
+							</li>
+							<?php $total +=$pecah['harga_ikan']*$jumlah ?>
+							<?php endforeach ?>
+							<?php } ?>
+
+						</ul>
+						<ul class="price-list">
+							<li>Total<span>Rp.<?php echo $total ?></span></li>
+							<li>Pengiriman<span>Gratis</span></li>
+							<li class="total">Total<span>Rp.<?php echo $total ?></span></li>
 						</ul>
 					</div>
 				</div>
@@ -168,6 +234,51 @@
 		</div>
 	</section>
 	<!-- checkout section end -->
+
+	<?php  
+		if (isset($_POST['checkout'])) {
+			$id_pembeli = $_SESSION['pembeli']['id_pembeli'];
+			$tanggal_pembelian = date("Y-m-d");
+			$alamat = $_POST['alamat_saya'];
+			if($_POST['pilih'] == 'alamat_lain' && (!empty($_POST['alamat_lain']))){
+				$alamat = $_POST['alamat_lain'].", ".$_POST['kota'].", ".$_POST['kd_pos'];
+			}
+
+			$koneksi->query("INSERT INTO pembelian (id_pembeli, tanggal_pembelian, total_pembelian, alamat_pengiriman, status) VALUES ('$id_pembeli', '$tanggal_pembelian', '$total', '$alamat', 'proses') ");
+
+			echo "<script> alert('pesanan akan segera diproses .!'); </script>";
+
+			//mendapatkan id_pembelian barusan terjadi
+			$id_pembelian_barusan = $koneksi->insert_id;
+			foreach ($_SESSION['keranjang'] as $id_ikan => $jumlah) {
+
+				$koneksi->query("UPDATE ikan SET stok_ikan = stok_ikan - $jumlah WHERE id_ikan = '$id_ikan' ");
+
+				$ambil = $koneksi->query("SELECT * FROM ikan WHERE id_ikan = '$id_ikan' ");
+
+				$perikan = $ambil->fetch_assoc();
+				$nama = $perikan['nama_ikan'];
+				$harga = $perikan['harga_ikan'];
+				$subHarga = $jumlah*$harga;
+
+				$koneksi->query("INSERT INTO pembelian_ikan (id_pembelian, id_ikan, jumlah, nama_ikan, harga_ikan, harga_total) VALUES ('$id_pembelian_barusan', '$id_ikan', '$jumlah', '$nama', '$harga', '$subHarga')");
+
+				if ($perikan['stok_ikan'] <= 0) {
+					$koneksi->query("UPDATE ikan SET status_ikan = 'habis' where id_ikan = '$id_ikan' ");
+				}
+
+
+			}
+
+			// 3. mengkosongkan keranjang belanja
+			unset($_SESSION['keranjang']);
+
+			// 4. tampilan dialihkan ke halaman nota
+			echo "<script>alert('pembelian success');</script>";
+			echo "<script>location='nota.php?id=$id_pembelian_barusan' </script>";
+		}
+
+	?>
 
 	<!-- bagian bawah -->
 	<section class="footer-section">
