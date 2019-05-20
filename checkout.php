@@ -1,12 +1,24 @@
+<!-- 
+	/**
+	 * pada halaman ini akan mengkonfirmasi pesanan dari si
+	 * pembeli dan akan dimasukan langsung ke database dan 
+	 * ditampilkan ke admin.
+	 * @author M.Khairul Ramadhan
+	 */
+ -->
 <?php 
-	session_start();
+	session_start();	//memulai session
+
+	// koneksi kedatabase
 	$koneksi = new mysqli("localhost", "root", "", "mugon");
 
+	// kondisi jika pembeli belum login
 	if(!isset($_SESSION['pembeli'])){
 		echo "<script> alert('anda harus login .!');</script>";
 		echo "<script>location='login.php';</script>";
 	}
 
+	// jika keranjang kosong
 	if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 		$banyak = count($_SESSION['keranjang']);
 	}
@@ -163,6 +175,7 @@
 							</div>
 						</div>
 
+						<!-- mengambil identitas pembeli dan ditampilkan -->
 						<?php 
 							  //ambil id dari session
 							  $id_pembeli = $_SESSION['pembeli']['id_pembeli'];
@@ -204,6 +217,7 @@
 						<h3>Pesanan Anda</h3>
 						<ul class="product-list">
 
+							<!-- menampilkan semua pesanan dan harga total -->
 							<?php $total = 0; ?>
 							<?php if(isset($_SESSION['keranjang'])){ ?>
 							<?php foreach ($_SESSION["keranjang"] as $id_ikan => $jumlah): ?>
@@ -235,6 +249,7 @@
 	</section>
 	<!-- checkout section end -->
 
+	<!-- memasukan ke databse ketika buttom checkout ditekan -->
 	<?php  
 		if (isset($_POST['checkout'])) {
 			$id_pembeli = $_SESSION['pembeli']['id_pembeli'];
@@ -261,6 +276,7 @@
 				$harga = $perikan['harga_ikan'];
 				$subHarga = $jumlah*$harga;
 
+				// memasukan ke database pembelian_ikan
 				$koneksi->query("INSERT INTO pembelian_ikan (id_pembelian, id_ikan, jumlah, nama_ikan, harga_ikan, harga_total) VALUES ('$id_pembelian_barusan', '$id_ikan', '$jumlah', '$nama', '$harga', '$subHarga')");
 
 				if ($perikan['stok_ikan'] <= 0) {
