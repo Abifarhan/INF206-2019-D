@@ -1,5 +1,6 @@
 <?php 
 	session_start();
+	// pengkoneksian database
 	$koneksi = new mysqli("localhost", "root", "", "mugon");
 
 	//mendapatkan id dari url
@@ -7,6 +8,7 @@
 	$ambil = $koneksi->query("SELECT * FROM ikan WHERE id_ikan = '$id_ikan' ");
 	$pecah = $ambil->fetch_assoc();
 
+	// pengkondisian dalam pembelian
 	if ($pecah['stok_ikan'] <= 0) {
 		echo "<script>alert('Ikan Habis..!');</script>";
 		echo "<script>location='index.php'</script>";
@@ -31,5 +33,3 @@
 
 	echo "<script>alert('pesanan ikan sudah masuk ke keranjang belanja');</script>";
 	echo "<script>location='keranjang.php'</script>";
-
-?>
