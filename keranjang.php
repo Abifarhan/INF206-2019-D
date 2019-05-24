@@ -1,22 +1,23 @@
 <?php
 
-	session_start();
+session_start();
+
+// pengkoneksian ke database
+$koneksi = new mysqli("localhost", "root", "", "mugon");
 
 
-	$koneksi = new mysqli("localhost", "root", "", "mugon");
+if (empty($_SESSION['keranjang']) || !isset($_SESSION['keranjang'])) {
+	echo "<script>alert('keranjang kosong !, silahkan berbelanja  .!');</script>";
+	echo "<script>location = 'index.php';</script>";
+}
 
-
-	if(empty($_SESSION['keranjang']) || !isset($_SESSION['keranjang'])){
-		echo "<script>alert('keranjang kosong !, silahkan berbelanja  .!');</script>";
-		echo "<script>location = 'index.php';</script>";
-	}
-
-	if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
-		$banyak = count($_SESSION['keranjang']);
-	}
+if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
+	$banyak = count($_SESSION['keranjang']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
+
 <head>
 	<title>MugOn | Keranjang</title>
 	<meta charset="UTF-8">
@@ -24,23 +25,24 @@
 	<meta name="keywords" content="divisima, eCommerce, creative, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!-- Favicon -->
-	<link href="img/logo.png" rel="shortcut icon"/>
+	<link href="img/logo.png" rel="shortcut icon" />
 
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
 
 
 	<!-- Stylesheets -->
-	<link rel="stylesheet" href="css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="css/font-awesome.min.css"/>
-	<link rel="stylesheet" href="css/flaticon.css"/>
-	<link rel="stylesheet" href="css/slicknav.min.css"/>
-	<link rel="stylesheet" href="css/jquery-ui.min.css"/>
-	<link rel="stylesheet" href="css/owl.carousel.min.css"/>
-	<link rel="stylesheet" href="css/animate.css"/>
-	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/flaticon.css" />
+	<link rel="stylesheet" href="css/slicknav.min.css" />
+	<link rel="stylesheet" href="css/jquery-ui.min.css" />
+	<link rel="stylesheet" href="css/owl.carousel.min.css" />
+	<link rel="stylesheet" href="css/animate.css" />
+	<link rel="stylesheet" href="css/style.css" />
 
 </head>
+
 <body>
 
 	<!-- tampilan loading -->
@@ -60,7 +62,6 @@
 						</a>
 					</div>
 					<div class="col-lg-3">
-
 					</div>
 					<div class="col-lg-4">
 						<div class="user-panel">
@@ -68,7 +69,7 @@
 								<i class="flaticon-profile"></i>
 								<?php if (isset($_SESSION['pembeli'])) { ?>
 									<a href="profil.php"><?php echo $_SESSION['pembeli']['nama_pembeli']; ?></a>
-								<?php }else{ ?>
+								<?php } else { ?>
 									<a href="login.php">Login</a> atau <a href="daftar.php">Daftar</a>
 								<?php } ?>
 							</div>
@@ -76,11 +77,11 @@
 								<div class="shopping-card">
 									<i class="flaticon-bag"></i>
 									<span>
-									<?php if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
-										echo $banyak; 
-									}else{
-									 	echo '0';
-									} ?>
+										<?php if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
+											echo $banyak;
+										} else {
+											echo '0';
+										} ?>
 									</span>
 
 								</div>
@@ -90,25 +91,26 @@
 					</div>
 					<div class="col-lg-3">
 						<form class="form-inline mr-auto" method="post" action="">
-						  <input class="form-control mr-sm-2" name="cari" type="text" placeholder="Cari Ikan" aria-label="Search">
-						  <button class="btn btn-outline-secondary btn-rounded my-0" name="search" type="submit">Cari</button>
+							<input class="form-control mr-sm-2" name="cari" type="text" placeholder="Cari Ikan" aria-label="Search">
+							<button class="btn btn-outline-secondary btn-rounded my-0" name="search" type="submit">Cari</button>
 						</form>
 					</div>
 
 					<!-- fungsi search ikan -->
-					<?php 
-						if (isset($_POST['cari'])) {
-							$koneksi = new mysqli("localhost", "root", "", "mugon");
-							$ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
-							$pecah = $ambil->fetch_assoc();	
-							if (!empty($pecah)) {
-								echo "<script>location='detail_ikan.php?id=".$pecah['id_ikan']."'</script>";	
-							}else{
-								echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
-								echo "<script>location='index.php'</script>";
-							}
+					<?php
+					if (isset($_POST['cari'])) {
+						$koneksi = new mysqli("localhost", "root", "", "mugon");
+						$ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
+						$pecah = $ambil->fetch_assoc();
+						if (!empty($pecah)) {
+							echo "<script>location='detail_ikan.php?id=" . $pecah['id_ikan'] . "'</script>";
+						} else {
+							echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
+							echo "<script>location='index.php'</script>";
 						}
+					}
 					?>
+					<!-- akhir fungsi search -->
 
 				</div>
 			</div>
@@ -151,50 +153,54 @@
 						<h3>Pembelian Anda</h3>
 						<div class="cart-table-warp">
 							<table>
-							<thead>
-								<tr>
-									<th class="product-th">Ikan</th>
-									<th class="quy-th">Berat/kg</th>
-									<th class="size-th">subTotal</th>
-									<th class="total-th">Aksi</th>
-								</tr>
-							</thead>
-							<tbody>
+								<thead>
+									<tr>
+										<th class="product-th">Ikan</th>
+										<th class="quy-th">Berat/kg</th>
+										<th class="size-th">subTotal</th>
+										<th class="total-th">Aksi</th>
+									</tr>
+								</thead>
+								<tbody>
 
-							<?php $total = 0; ?>
-							<?php if(isset($_SESSION['keranjang'])){ ?>
-							<?php foreach ($_SESSION["keranjang"] as $id_ikan => $jumlah): ?>
-								<!-- menampilkan produk -->
-							<?php 
-								$ambil = $koneksi->query("SELECT * FROM ikan WHERE id_ikan = '$id_ikan' ");
-								$pecah = $ambil->fetch_assoc();
-							 ?>			
+									<?php $total = 0; ?>
+									<?php if (isset($_SESSION['keranjang'])) { ?>
+										<?php foreach ($_SESSION["keranjang"] as $id_ikan => $jumlah) : ?>
+											<!-- menampilkan produk -->
+											<?php
+											$ambil = $koneksi->query("SELECT * FROM ikan WHERE id_ikan = '$id_ikan' ");
+											$pecah = $ambil->fetch_assoc();
+											?>
 
-								<tr>
-									<td class="product-col">
-										<img src="img/Ikan/<?php echo $pecah['gambar_ikan']; ?>" alt="">
-										<div class="pc-title">
-											<h4><?php echo $pecah['nama_ikan'] ?></h4>
-											<p>Rp. <?php echo number_format($pecah['harga_ikan'])  ?> / kg</p>
-										</div>
-									</td>
-									<td class="quy-col">
-										<div class="quantity">
-					                        <div class="pro-qty-test">
-												<input type="text" value="<?php echo $jumlah ?>" readonly>
-											</div>
-                    					</div>
-									</td>
-									<td class="total-col"><h4>Rp.<?php echo number_format($pecah['harga_ikan']*$jumlah); ?></h4></td>
-									<td class=""><h4><a href="hapus_keranjang.php?id=<?php echo "$id_ikan"; ?>" class="btn btn-danger btn-xs">Hapus</a></h4></td>
-								</tr>
+											<tr>
+												<td class="product-col">
+													<img src="img/Ikan/<?php echo $pecah['gambar_ikan']; ?>" alt="">
+													<div class="pc-title">
+														<h4><?php echo $pecah['nama_ikan'] ?></h4>
+														<p>Rp. <?php echo number_format($pecah['harga_ikan'])  ?> / kg</p>
+													</div>
+												</td>
+												<td class="quy-col">
+													<div class="quantity">
+														<div class="pro-qty-test">
+															<input type="text" value="<?php echo $jumlah ?>" readonly>
+														</div>
+													</div>
+												</td>
+												<td class="total-col">
+													<h4>Rp.<?php echo number_format($pecah['harga_ikan'] * $jumlah); ?></h4>
+												</td>
+												<td class="">
+													<h4><a href="hapus_keranjang.php?id=<?php echo "$id_ikan"; ?>" class="btn btn-danger btn-xs">Hapus</a></h4>
+												</td>
+											</tr>
 
-							<?php $total +=$pecah['harga_ikan']*$jumlah ?>
-							<?php endforeach ?>
-							<?php } ?>
+											<?php $total += $pecah['harga_ikan'] * $jumlah ?>
+										<?php endforeach ?>
+									<?php } ?>
 
-							</tbody>
-						</table>
+								</tbody>
+							</table>
 						</div>
 						<div class="total-cost">
 							<h6>Total <span>Rp.<?php echo number_format($total); ?></span></h6>
@@ -217,34 +223,36 @@
 				<h2>Lanjutkan Belanja</h2>
 			</div>
 			<div class="row">
-				<?php 	
+				<?php
 				$sql = "SELECT * FROM ikan";
-				$tampilIkan = mysqli_query($koneksi,$sql);
-				$batas = mysqli_num_rows($tampilIkan);						//membatasi 
-				while($variabel = mysqli_fetch_assoc($tampilIkan)){ ?>
-				<?php if (!($batas > 4)) { ?>
-				<div class="col-lg-3 c0l-sm-6">
-				<div class="product-item">
-					<div class="pi-pic">
-						<?php if ($variabel['stok_ikan'] <= 0) { ?>
-							<div class="tag-sale">HABIS</div>
-						<?php }else{ ?>
-						<div class="tag-sale">STOK: <?php echo $variabel['stok_ikan']; ?>kg</div>
-						<?php } ?>	
-						<a href="detail_ikan.php?id=<?php echo $variabel['id_ikan']?>"><img src="img/Ikan/<?php echo $variabel['gambar_ikan'];?>"alt="tampil"></a>
-						<div class="pi-links">
-							<a href="beli.php?id=<?php echo $variabel['id_ikan']?>" class="add-card"><i class="flaticon-bag"></i><span>Beli Sekarang</span></a>
+				$tampilIkan = mysqli_query($koneksi, $sql);
+				// untuk membatasi
+				$batas = mysqli_num_rows($tampilIkan);
+				while ($variabel = mysqli_fetch_assoc($tampilIkan)) { ?>
+					<?php if (!($batas > 4)) { ?>
+						<div class="col-lg-3 c0l-sm-6">
+							<div class="product-item">
+								<div class="pi-pic">
+									<?php if ($variabel['stok_ikan'] <= 0) { ?>
+										<div class="tag-sale">HABIS</div>
+									<?php } else { ?>
+										<div class="tag-sale">STOK: <?php echo $variabel['stok_ikan']; ?>kg</div>
+									<?php } ?>
+									<a href="detail_ikan.php?id=<?php echo $variabel['id_ikan'] ?>"><img src="img/Ikan/<?php echo $variabel['gambar_ikan']; ?>" alt="tampil"></a>
+									<div class="pi-links">
+										<a href="beli.php?id=<?php echo $variabel['id_ikan'] ?>" class="add-card"><i class="flaticon-bag"></i><span>Beli Sekarang</span></a>
+									</div>
+								</div>
+								<div class="pi-text">
+									<?php echo "<h6>" . $variabel['harga_ikan'] . "/kg</h6>" ?>
+									<?php echo "<p>" . $variabel['nama_ikan'] . "</p>" ?>
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="pi-text">
-						<?php echo "<h6>". $variabel['harga_ikan']."/kg</h6>"?>
-						<?php echo "<p>". $variabel['nama_ikan']."</p>"?>
-					</div>
-				</div>
-				</div>
-				<?php } ?>
-			<?php $batas--; }?>
-		</div>
+					<?php } ?>
+					<?php $batas--;
+				} ?>
+			</div>
 	</section>
 	<!-- Related product section end -->
 
@@ -265,7 +273,7 @@
 				</div>
 				<div class="col-lg-3 col-sm-6">
 				</div>
-	
+
 				<div class="col-lg-3 col-sm-6">
 					<div class="footer-widget contact-widget">
 						<h2>Questions</h2>
@@ -298,7 +306,9 @@
 					<a href="" class="youtube"><i class="fa fa-youtube"></i><span>youtube</span></a>
 				</div>
 
-<p class="text-white text-center mt-5">Copyright &copy;<script>document.write(new Date().getFullYear());</script> MugeeOnline <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">MugOn</a></p>
+				<p class="text-white text-center mt-5">Copyright &copy;<script>
+						document.write(new Date().getFullYear());
+					</script> MugeeOnline <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">MugOn</a></p>
 
 			</div>
 		</div>
@@ -315,5 +325,6 @@
 	<script src="js/jquery-ui.min.js"></script>
 	<script src="js/main.js"></script>
 
-	</body>
+</body>
+
 </html>
