@@ -1,6 +1,10 @@
-<?php 
+<!-- Berikut merupakan suatu profil dari halaman pembeli yang memiliki fiture update data diri pembeli
+ @author: Raisya Husna Agustin
+-->
+
+<?php
   session_start();
-  $koneksi = new mysqli("localhost", "root", "", "mugon");
+  $koneksi = new mysqli("localhost", "root", "", "mugon"); //koneksi ke database
 	if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 		$banyak = count($_SESSION['keranjang']);
 	}
@@ -170,7 +174,7 @@
 					</form>
 
 					<?php
-						if (isset($_POST['ubah'])) {
+						if (isset($_POST['ubah'])) { // jika tombol simpan ditekan maka akan teruodate ke database
 							$namafoto = $_FILES['foto']['name'];
 							$lokasifoto = $_FILES['foto']['tmp_name'];
 							//jika foto dirubah
