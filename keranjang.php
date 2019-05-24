@@ -15,6 +15,35 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 	$banyak = count($_SESSION['keranjang']);
 }
 ?>
+
+<style>
+	.quantity .pro-qty-test {
+		width: 94px;
+		height: 36px;
+		border: 1px solid #ddd;
+		padding: 0 15px;
+		border-radius: 40px;
+		float: left;
+	}
+
+	.quantity .pro-qty-test input {
+		width: 28px;
+		float: left;
+		border: none;
+		height: 36px;
+		line-height: 40px;
+		padding: 0;
+		font-size: 14px;
+		text-align: center;
+		background-color: transparent;
+	}
+
+	.cart-table .quantity .pro-qty-test {
+		width: 85px;
+		background: #fff;
+		border-color: #fff;
+	}
+</style>
 <!DOCTYPE html>
 <html lang="zxx">
 
