@@ -1,11 +1,18 @@
-<?php 
-	session_start();
+<!-- 
+		halaman berikut merupakan halaman untuk menampilkan detail dari ikan,
+		@author M.Khairul Ramadhan, 25-05-2019
 
+ -->
+<?php 
+	session_start();	//mulai session
+
+	// koneksi kedatabase mugon
 	$koneksi = new mysqli("localhost", "root", "", "mugon");
 	if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 		$banyak = count($_SESSION['keranjang']);
 	}
 
+	// mendapatkan id ikan dari url
 	$id_ikan = $_GET['id'];
 
 	$ambil = $koneksi->query("SELECT * FROM ikan WHERE id_ikan = '$id_ikan' ");
@@ -236,6 +243,7 @@
 			</div>
 			<div class="product-slider owl-carousel">
 
+			<!-- menampilkan ikan yang dijual -->
 			<?php 	
 				$tampilIkan = $koneksi->query("SELECT * FROM ikan");
 				$batas = mysqli_num_rows($tampilIkan);						//membatasi 
