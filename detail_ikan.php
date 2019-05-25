@@ -1,4 +1,16 @@
+<?php 
+	session_start();
 
+	$koneksi = new mysqli("localhost", "root", "", "mugon");
+	if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
+		$banyak = count($_SESSION['keranjang']);
+	}
+
+	$id_ikan = $_GET['id'];
+
+	$ambil = $koneksi->query("SELECT * FROM ikan WHERE id_ikan = '$id_ikan' ");
+	$pecah = $ambil->fetch_assoc();	
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,10 +67,21 @@
 						<div class="user-panel">
 							<div class="up-item">
 								<i class="flaticon-profile"></i>
+								<?php if (isset($_SESSION['pembeli'])) { ?>
+									<a href="profil.php"><?php echo $_SESSION['pembeli']['nama_pembeli']; ?></a>
+								<?php }else{ ?>
+									<a href="login.php">Login</a> atau <a href="daftar.php">Daftar</a>
+								<?php } ?>
 							</div>
 							<div class="up-item">
 								<div class="shopping-card">
 									<i class="flaticon-bag"></i>
+									<span>
+									<?php if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
+										echo $banyak; 
+									}else{
+									 	echo '0';
+									} ?>
 									</span>
 
 								</div>
@@ -73,6 +96,20 @@
 						</form>
 					</div>
 
+					<!-- fungsi search ikan -->
+					<?php 
+						if (isset($_POST['cari'])) {
+							$koneksi = new mysqli("localhost", "root", "", "mugon");
+							$ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
+							$pecah = $ambil->fetch_assoc();	
+							if (!empty($pecah)) {
+								echo "<script>location='detail_ikan.php?id=".$pecah['id_ikan']."'</script>";	
+							}else{
+								echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
+								echo "<script>location='index.php'</script>";
+							}
+						}
+					?>
 
 				</div>
 			</div>
@@ -121,7 +158,9 @@
 				</div>
 				<div class="col-lg-6 product-details">
 
-					<
+					<h2 class="p-title"><?php echo $pecah['nama_ikan'] ?></h2>
+					<h3 class="p-price">Rp. <?php echo $pecah['harga_ikan'] ?> / kg</h3>
+					<h4 class="p-stock">Tersedia: <span>Stok : <?php echo $pecah['stok_ikan'] ?> kg</span></h4>
 					<div class="p-review">
 						<a href="">3 Pembeli</a>|<a href=""></a>
 					</div>
@@ -197,7 +236,31 @@
 			</div>
 			<div class="product-slider owl-carousel">
 
-		
+			<?php 	
+				$tampilIkan = $koneksi->query("SELECT * FROM ikan");
+				$batas = mysqli_num_rows($tampilIkan);						//membatasi 
+				while($variabel = mysqli_fetch_assoc($tampilIkan)){ ?>
+				<?php if (!($batas > 6)) { ?>
+				<div class="product-item">
+					<div class="pi-pic">
+						<?php if ($variabel['stok_ikan'] <= 0) { ?>
+							<div class="tag-sale">HABIS</div>
+						<?php }else{ ?>
+						<div class="tag-sale">STOK: <?php echo $variabel['stok_ikan']; ?>kg</div>
+						<?php } ?>	
+						<a href="detail_ikan.php?id=<?php echo $variabel['id_ikan']?>"><img src="img/Ikan/<?php echo $variabel['gambar_ikan'];?>"alt="tampil"></a>
+						<div class="pi-links">
+							<a href="beli.php?id=<?php echo $variabel['id_ikan']?>" class="add-card"><i class="flaticon-bag"></i><span>Beli Sekarang</span></a>
+						</div>
+					</div>
+					<div class="pi-text">
+						<?php echo "<h6>". $variabel['harga_ikan']."/kg</h6>"?>
+						<?php echo "<p>". $variabel['nama_ikan']."</p>"?>
+					</div>
+				</div>
+				<?php } ?>
+			<?php $batas--; }?>
+
 			</div>
 		</div>
 	</section>
