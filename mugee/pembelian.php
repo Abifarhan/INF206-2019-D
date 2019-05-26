@@ -1,4 +1,18 @@
+<!-- 
+    Halaman untuk menampilkan list pesanan dari pembeli ,
+    @author : M.Khairul Ramadhan , 26-05-2019
+ -->
+<?php 
+  session_start();    //mulai session
+  // koneksi ke database
+  $koneksi = new mysqli("localhost", "root", "", "mugon");
 
+  // juka mugee belum login
+  if(!isset($_SESSION['mugee'])){
+    echo "<script> alert('anda harus login .!');</script>";
+    echo "<script>location='../login.php';</script>";
+  }
+?>
 
 <!DOCTYPE html>
 <html>
@@ -50,6 +64,7 @@
             <div class="user-panel">
               <div class="up-item">
                 <i class="flaticon-profile"></i>
+                <a href="index.php"><?php echo $_SESSION['mugee']['nama_mugee']; ?></a>
               </div>
               <div class="up-item">
                 <div class="shopping-card">
@@ -104,7 +119,23 @@
         </tr>
       </thead>
       <tbody>
-       
+        <!-- perulangan untuk menampilkan isi dari database -->
+        <?php $nomor=1; ?>
+        <?php $ambil=$koneksi->query("SELECT * FROM pembelian JOIN pembeli ON pembelian.id_pembeli = pembeli.id_pembeli AND pembelian.status = 'proses' "); ?>
+        <?php while ($pecah = $ambil->fetch_assoc()) { ?>
+        <tr>
+          <th scope="row"><?php echo $nomor ?></th>
+          <td><?php echo $pecah['nama_pembeli'] ?></td>
+          <td><?php echo $pecah['alamat_pengiriman'] ?></td>
+          <td><?php echo $pecah['total_pembelian'] ?></td>
+          <td><?php echo $pecah['tanggal_pembelian'] ?></td>
+          <td><img style="width: 100px;" src="../img/profil/<?php echo $pecah['foto_pembeli'] ?>" alt=""></td>
+          <td>
+            <a href="detail_pembelian.php?id=<?php echo $pecah['id_pembelian']?>" class="btn btn-info">Detail</a>
+          </td>
+        </tr>
+      <?php $nomor++; ?>
+      <?php } ?>
       </tbody>
     </table>
   <br>
@@ -165,6 +196,8 @@
     </div>
   </section>
   <!-- akhir bagian akhir-->
+
+
 
   <!--====== Javascripts & Jquery ======-->
   <script src="../js/jquery-3.2.1.min.js"></script>
