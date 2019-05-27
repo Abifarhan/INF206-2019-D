@@ -9,7 +9,10 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Bagian CSS -->
     <style>
+        /* Css untuk bagian pengenalan aplikasi */
         body {
             /* background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0. 6)), url(photo.jpg); */
             background: #000000;
@@ -37,6 +40,8 @@
             height: 3px;
             margin: 10px auto;
         }
+
+        /* akhir Css untuk bagian pengenalan aplikasi */
 
         /* css untuk our team */
         * {
@@ -117,7 +122,10 @@
         .services h1 {
             color: burlywood;
         }
+
+        /* Akhir css our team */
     </style>
+    <!-- akhir css -->
 </head>
 
 <body>
@@ -132,29 +140,9 @@
         <div class="col-md-12 text-center">
             <p>MugOn adalah aplikasi jual beli ikan secara online yang bertujuan untuk membantu masyarakat yang ingin membeli ikan tanpa harus pergi ke pasar sehingga pembeli lebih dapat menghemat waktu</p>
         </div>
-        <!-- <div class="col-md-3 text-center">
-            <div class="icon">
-                <i class="fa fa-dekstop" aria-hidden="true"></i>
-            </div>
-            <h3>Web Development</h3>
-            <p>Ini untuk situs Mugon</p>
-        </div>
-        <div class="col-md-3 text-center">
-            <div class="icon">
-                <i class="fa fa-dekstop" aria-hidden="true"></i>
-            </div>
-            <h3>Web Development</h3>
-            <p>Ini untuk situs Mugon</p>
-        </div>
-        <div class="col-md-3 text-center">
-            <div class="icon">
-                <i class="fa fa-dekstop" aria-hidden="true"></i>
-            </div>
-            <h3>Web Development</h3>
-            <p>Ini untuk situs Mugon</p>
-        </div> -->
     </div>
     <!-- Bagian akhir our service -->
+
     <!-- Bagian our team -->
     <div class="team-section text-center">
         <h1>Our Team</h1>
@@ -169,25 +157,25 @@
         <div class="section" id="p1">
             <span class="name">Abi Farhan</span>
             <span class="border"></span>
-            <p>ini profil Abi Farhan</p>
+            <p>Abi Farhan adalah alumni SMAN Modal Bangsa Arun yang sekarang kuliah di informatika Unsyiah</p>
         </div>
 
         <div class="section" id="p2">
             <span class="name">M.Khairul Ramadhan</span>
             <span class="border"></span>
-            <p>ini profil Khairul</p>
+            <p>M.Khairul Ramadhan adalah alumni SMAN Idi Rayeuk Aceh Timur yang sekarang kuliah di informatika Unsyiah</p>
         </div>
 
         <div class="section" id="p3">
             <span class="name">Raisya Husna</span>
             <span class="border"></span>
-            <p>ini profil Raisya</p>
+            <p>Raisya Husna Agustin adalah alumni SMAN 4 Banda Aceh yang sekarang kuliah di informatika Unsyiah</p>
         </div>
 
         <div class="section" id="p4">
             <span class="name">Tedy Alfariansah</span>
             <span class="border"></span>
-            <p>ini profil Tedy</p>
+            <p>Tedy Alfariansah adalah alumni SMK 1 Banda Aceh yang sekarang kuliah di informatika Unsyiah</p>
         </div>
     </div>
     <!-- Bagian akhir out team -->
