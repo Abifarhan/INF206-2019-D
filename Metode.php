@@ -175,7 +175,7 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
                                 <?php if (isset($_SESSION['pembeli'])) { ?>
                                     <a href="profil.php"><?php echo $_SESSION['pembeli']['nama_pembeli']; ?></a>
                                 <?php } else { ?>
-                                    <a href="login.php">Login</a><a href="#" style="color:black;">atau</a><a href="daftar.php">Daftar</a>
+                                    <a href="login.php">Login</a><a href="#" style="color:black;"> atau </a><a href="daftar.php">Daftar</a>
                                 <?php } ?>
                             </div>
                             <div class="up-item">
