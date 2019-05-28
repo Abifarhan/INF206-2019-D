@@ -131,15 +131,16 @@
 <body>
     <!-- Our Service -->
     <div class="container text-center">
-        <div class="services">
+        <div class="services mt-4">
             <h1>MugOn</h1><br><br>
-            <h3>Apa Itu MugOn?</h3>
+            <h3 class="text text-white">Apa Itu MugOn?</h3>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <p>MugOn adalah aplikasi jual beli ikan secara online yang bertujuan untuk membantu masyarakat yang ingin membeli ikan tanpa harus pergi ke pasar sehingga pembeli lebih dapat menghemat waktu</p>
+        <div class="row text-white">
+            <div class="col-md-12 text-center">
+                <p>MugOn adalah aplikasi jual beli ikan secara online yang bertujuan untuk membantu masyarakat yang ingin membeli ikan tanpa harus pergi ke pasar sehingga pembeli lebih dapat menghemat waktu</p>
+            </div>
         </div>
+
     </div>
     <!-- Bagian akhir our service -->
 
