@@ -1,3 +1,7 @@
+<!-- Berikut merupakan suatu fungsi dari total pesanan dan nota
+ @author: Raisya Husna Agustin
+-->
+
 <?php
 	session_start();
 	$koneksi = new mysqli("localhost", "root", "", "mugon");
@@ -138,6 +142,7 @@
 	<br>
 	<section class="konten">
 		<div class="container">
+			<!-- koneksi ke database  -->
 			<?php
 				$ambil = $koneksi->query("SELECT * FROM pembelian JOIN pembeli ON pembelian.id_pembeli=pembeli.id_pembeli WHERE pembelian.id_pembelian='$_GET[id]'");
 				$detail = $ambil->fetch_assoc();
