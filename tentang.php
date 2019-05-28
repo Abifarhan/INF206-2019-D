@@ -171,15 +171,15 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
                     <div class="col-lg-4">
                         <div class="user-panel">
                             <div class="up-item">
-                                <i class="flaticon-profile"></i>
+                                <i class="flaticon-profile" style="color:black;"></i>
                                 <?php if (isset($_SESSION['pembeli'])) { ?>
                                     <a href="profil.php"><?php echo $_SESSION['pembeli']['nama_pembeli']; ?></a>
                                 <?php } else { ?>
-                                    <a href="login.php">Login</a> atau <a href="daftar.php">Daftar</a>
+                                    <a href="login.php">Login</a> <a href="#" style="color:black;">atau</a> <a href="daftar.php">Daftar</a>
                                 <?php } ?>
                             </div>
                             <div class="up-item">
-                                <div class="shopping-card">
+                                <div class="shopping-card" style="color:black;">
                                     <i class="flaticon-bag"></i>
                                     <span>
                                         <?php if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
