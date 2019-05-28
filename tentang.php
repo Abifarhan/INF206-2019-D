@@ -151,31 +151,31 @@
             <a href="#p1"><img src="img/pas foto.jpg" alt=""></a>
             <a href="#p2"><img src="img/khairul.jpeg" alt=""></a>
             <a href="#p3"><img src="img/raisya.jpeg" alt=""></a>
-            <a href="#p4"><img src="img/2.jpg" alt=""></a>
+            <a href="#p4"><img src="img/teddy.jpg" alt=""></a>
         </div>
 
         <div class="section" id="p1">
             <span class="name">Abi Farhan</span>
             <span class="border"></span>
-            <p>Abi Farhan adalah alumni SMAN Modal Bangsa Arun yang sekarang kuliah di informatika Unsyiah</p>
+            <p style="text-transform:capitalize;">Abi Farhan adalah alumni SMAN Modal Bangsa Arun yang sekarang kuliah di informatika Unsyiah</p>
         </div>
 
         <div class="section" id="p2">
             <span class="name">M.Khairul Ramadhan</span>
             <span class="border"></span>
-            <p>M.Khairul Ramadhan adalah alumni SMAN Idi Rayeuk Aceh Timur yang sekarang kuliah di informatika Unsyiah</p>
+            <p style="text-transform:capitalize;">M.Khairul Ramadhan adalah alumni SMAN Idi Rayeuk Aceh Timur yang sekarang kuliah di informatika Unsyiah</p>
         </div>
 
         <div class="section" id="p3">
             <span class="name">Raisya Husna</span>
             <span class="border"></span>
-            <p>Raisya Husna Agustin adalah alumni SMAN 4 Banda Aceh yang sekarang kuliah di informatika Unsyiah</p>
+            <p style="text-transform:capitalize;">Raisya Husna Agustin adalah alumni SMAN 4 Banda Aceh yang sekarang kuliah di informatika Unsyiah</p>
         </div>
 
         <div class="section" id="p4">
             <span class="name">Tedy Alfariansah</span>
             <span class="border"></span>
-            <p>Tedy Alfariansah adalah alumni SMK 1 Banda Aceh yang sekarang kuliah di informatika Unsyiah</p>
+            <p style="text-transform:capitalize;">Tedy Alfariansah adalah alumni SMK 1 Banda Aceh yang sekarang kuliah di informatika Unsyiah</p>
         </div>
     </div>
     <!-- Bagian akhir out team -->
