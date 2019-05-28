@@ -10,7 +10,7 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 <html>
 
 <head>
-    <title>MugOn | Tentang</title>
+    <title>MugOn | Metode</title>
     <meta charset="UTF-8">
     <meta name="description" content=" Divisima | eCommerce Template">
     <meta name="keywords" content="divisima, eCommerce, creative, html">
@@ -232,57 +232,30 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
     </header>
     <!-- akhir bagian dari kepala/atas -->
 
-    <!-- Our Service -->
     <div class="container text-center">
-        <div class="services mt-5">
-            <h1 style="color:brown">MugOn</h1><br><br>
-            <h3 class="text text-black">Apa Itu MugOn?</h3>
+        <div class="services mt-5 mb-3">
+            <h1>Metode Transaksi</h1>
         </div>
-        <div class="row text-black">
-            <div class="col-md-12 text-center">
-                <p>MugOn adalah aplikasi jual beli ikan secara online yang bertujuan untuk membantu masyarakat yang ingin membeli ikan tanpa harus pergi ke pasar sehingga pembeli lebih dapat menghemat waktu</p>
+        <div class="row text-center">
+            <div class="col-md-3 text-center">
+                <h3>Masuk Aplikasi MugOn</h3>
+                <p class="text-justify mt-2">User melakukan Login kedalam aplikasi untuk melihat ikan yang tersedia</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <h3>Memilih Ikan yang Tersedia</h3>
+                <p class="text-justify mt-2">User memilih ikan yang tersedia untuk dibeli </p>
+            </div>
+            <div class="col-md-3 text-center">
+                <h3>Melakukan checkout</h3>
+                <p class="text-justify mt-2">Setelah memilih ikan yang dibeli maka User melakukan checkout</p>
+            </div>
+            <div class="col-md-3 text-center">
+                <h3>Melakukan Pembayaran</h3>
+                <p class="text-justify mt-2">Pembayaran dilakukan secara cash on delivery dimana ketika pembelian sudah diantar maka pembeli membayar kepada penjual</p>
             </div>
         </div>
-
     </div>
-    <!-- Bagian akhir our service -->
 
-    <!-- Bagian our team -->
-    <div class="team-section text-center">
-        <h1>Our Team</h1>
-        <span class="border"></span>
-        <div class="ps">
-            <a href="#p1"><img src="img/pas foto.jpg" alt=""></a>
-            <a href="#p2"><img src="img/khairul.jpeg" alt=""></a>
-            <a href="#p3"><img src="img/raisya.jpeg" alt=""></a>
-            <a href="#p4"><img src="img/teddy.jpg" alt=""></a>
-        </div>
-
-        <div class="section" id="p1">
-            <span class="name">Abi Farhan</span>
-            <span class="border"></span>
-            <p style="text-transform:capitalize;">Abi Farhan adalah alumni SMAN Modal Bangsa Arun yang sekarang kuliah di informatika Unsyiah</p>
-        </div>
-
-        <div class="section" id="p2">
-            <span class="name">M.Khairul Ramadhan</span>
-            <span class="border"></span>
-            <p style="text-transform:capitalize;">M.Khairul Ramadhan adalah alumni SMAN Idi Rayeuk Aceh Timur yang sekarang kuliah di informatika Unsyiah</p>
-        </div>
-
-        <div class="section" id="p3">
-            <span class="name">Raisya Husna</span>
-            <span class="border"></span>
-            <p style="text-transform:capitalize;">Raisya Husna Agustin adalah alumni SMAN 4 Banda Aceh yang sekarang kuliah di informatika Unsyiah</p>
-        </div>
-
-        <div class="section" id="p4">
-            <span class="name">Tedy Alfariansah</span>
-            <span class="border"></span>
-            <p style="text-transform:capitalize; color:white; font-size: 16px;">Tedy Alfariansah adalah alumni SMK 1 Banda Aceh yang sekarang kuliah di informatika Unsyiah</p>
-        </div>
-    </div>
-    <!-- Bagian akhir out team -->
 
     <!-- bagian bawah -->
     <section class="footer-section">
