@@ -157,7 +157,7 @@
           $koneksi->query("INSERT INTO pembeli (nama_pembeli,email_pembeli,password_pembeli,no_hp_pembeli,alamat_pembeli) VALUES('$_POST[nama]','$_POST[email]','$_POST[password]','$_POST[no_hp]','$_POST[alamat]') ");
 
           echo "<div class='alert alert-info'>Anda sudah bisa login sekarang</div>";
-          echo " <meta http-equiv='refresh' content='l';url=login.php'>";
+          echo "<meta http-equiv='refresh' content='1;url=login.php'>";
 
         } 
 

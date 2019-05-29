@@ -261,8 +261,6 @@
 
 			$koneksi->query("INSERT INTO pembelian (id_pembeli, tanggal_pembelian, total_pembelian, alamat_pengiriman, status) VALUES ('$id_pembeli', '$tanggal_pembelian', '$total', '$alamat', 'proses') ");
 
-			echo "<script> alert('pesanan akan segera diproses .!'); </script>";
-
 			//mendapatkan id_pembelian barusan terjadi
 			$id_pembelian_barusan = $koneksi->insert_id;
 			foreach ($_SESSION['keranjang'] as $id_ikan => $jumlah) {
