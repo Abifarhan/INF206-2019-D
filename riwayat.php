@@ -1,4 +1,6 @@
 <?php 
+// Bagian untuk riwayat pesanan//
+
 	session_start();
 	$koneksi = new mysqli("localhost", "root", "", "mugon");
 	if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
@@ -139,7 +141,10 @@
 
 	<section class="container">
 
-	<br>
+	<br>	
+	<!-- 
+		Menampilkan Data Pembelian
+	 -->
 	<div class="jumbotron jumbotron-fluid" style="border-radius: 10px;">
 		<div class="container">
 			<h3 class="display-4">Pesanan Anda </h3>
@@ -164,6 +169,7 @@
       <tbody>
 
       	<?php 
+      	// Mengeluarkan data pembelian//
       		$nomor = 1;
       		$ikan=$koneksi->query("SELECT * FROM pembelian_ikan JOIN ikan WHERE pembelian_ikan.id_ikan = ikan.id_ikan AND pembelian_ikan.id_pembelian = '$pecah[id_pembelian]' ");
       		while($pecah_ikan = $ikan->fetch_assoc()){
@@ -191,6 +197,8 @@
 	<section class="container">
 
 	<br>
+	<!-- Mengeluarkan data riwayat -->
+	
 	<div class="jumbotron jumbotron-fluid" style="border-radius: 10px;">
 		<div class="container">
 			<h3 class="display-4">Riwayat Pesanan Anda </h3>
