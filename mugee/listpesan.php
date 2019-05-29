@@ -1,6 +1,10 @@
+<!-- Berikut merupakan suatu list pesan pada mugee
+ @author: Raisya Husna Agustin
+-->
+
 <?php
   session_start();
-  $koneksi = new mysqli("localhost", "root", "", "mugon");
+  $koneksi = new mysqli("localhost", "root", "", "mugon"); // koneksi ke database
 
   if(!isset($_SESSION['mugee'])){
     echo "<script> alert('anda harus login .!');</script>";
