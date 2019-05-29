@@ -101,6 +101,8 @@ if (!isset($_SESSION['mugee'])) {
     <!-- akhir bagian info -->
 
     <br>
+
+    <!-- Bagian awal Detail Pembelian -->
     <div class="container">
 
         <?php
@@ -185,6 +187,7 @@ if (!isset($_SESSION['mugee'])) {
         ?>
 
     </div>
+    <!-- Bagian awal Detail Pembelian -->
 
     <!-- bagian bawah -->
     <section class="footer-section">
