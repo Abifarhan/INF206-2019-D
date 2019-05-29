@@ -1,7 +1,14 @@
+<!-- 
+	Halaman berikut merupakan halaman kontak yang memberikan kontak dari mugee dan diberikan fitur untuk mengirimkan pesan kemugee
+	@author : M.Khairul Ramadhan , 29-05-2019
+ -->
+
 <?php 
+	// mulai session
 	session_start();
 	$koneksi = new mysqli("localhost", "root", "", "mugon");
 
+	// jika belum login
 	if(!isset($_SESSION['pembeli'])){
 		echo "<script> alert('anda harus login .!');</script>";
 		echo "<script>location='login.php';</script>";
@@ -148,10 +155,12 @@
 					</div>
 
 					<?php 
-
-						if (isset($_POST['submit'])) {
+						// fungsi untuk mengirimkan pesan kepada mugee
+						if (isset($_POST['submit'])) {		//ketika tombol submit ditekan
 							$id = $_SESSION['pembeli']['id_pembeli'];
 							$tgl = date("Y-m-d");
+
+							// query insert ke database
  							$koneksi->query("INSERT INTO pesan (id_pembeli, judul_pesan, isi_pesan, tanggal_pesan) VALUES ('$id', '$_POST[judul]', '$_POST[pesan]', '$tgl' ) ");
 
 						}
