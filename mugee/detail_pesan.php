@@ -1,4 +1,5 @@
 <?php
+// pengkoneksian ke database
 session_start();
 $koneksi = new mysqli("localhost", "root", "", "mugon");
 
@@ -100,16 +101,15 @@ if (!isset($_SESSION['mugee'])) {
     </div>
     <!-- akhir bagian info -->
 
+    <!-- Bagian awal fungsi detail pesanan -->
     <br>
     <div class="container">
-
         <?php
         $ambil = $koneksi->query("SELECT * FROM pesan JOIN pembeli ON pesan.id_pembeli=pembeli.id_pembeli WHERE pesan.id_pesan='$_GET[id]'");
         $detail = $ambil->fetch_assoc();
 
         ?>
         <div class="row">
-
             <div class="col-md-4">
                 <div class="checkout-cart">
                     <h3><?php echo $detail['nama_pembeli'] ?></h3>
@@ -118,7 +118,6 @@ if (!isset($_SESSION['mugee'])) {
                     </div>
                 </div>
             </div>
-
             <div class="col-md-5">
                 <strong>Nama: <?php echo $detail['nama_pembeli']; ?></strong><br>
                 <p>
@@ -127,24 +126,21 @@ if (!isset($_SESSION['mugee'])) {
                     Alamat : <?php echo $detail['alamat_pembeli']; ?>
                     Tanggal : <?php echo $detail['tanggal_pesan']; ?> <br>
                 </p>
-
                 <p>
                     Isi Pesan : <?php echo $detail['isi_pesan']; ?>
                 </p>
             </div>
         </div>
         <br>
-
         <br><br>
-
         <?php
         if (isset($_POST['konfirmasi'])) {
             $koneksi->query("UPDATE pembelian SET status = 'selesai' WHERE id_pembelian = $_GET[id] ");
             echo "<script>location='pembelian.php' </script>";
         }
         ?>
-
     </div>
+    <!-- Bagian akhir fungsi detail pesanan -->
 
     <!-- bagian bawah -->
     <section class="footer-section">
