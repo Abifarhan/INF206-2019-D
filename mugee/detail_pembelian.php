@@ -88,6 +88,104 @@ if (!isset($_SESSION['mugee'])) {
     </header>
     <!-- akhir bagian dari kepala/atas -->
 
+    <!-- Bagian info -->
+    <div class="page-top-info">
+        <div class="container">
+            <h4>Detail Pesanan</h4>
+            <div class="site-pagination">
+                <a href="pembelian.php">Back</a> /
+                <a href="">Pemesanan</a>
+            </div>
+        </div>
+    </div>
+    <!-- akhir bagian info -->
+
+    <br>
+    <div class="container">
+
+        <?php
+        $ambil = $koneksi->query("SELECT * FROM pembelian JOIN pembeli ON pembelian.id_pembeli=pembeli.id_pembeli WHERE pembelian.id_pembelian='$_GET[id]'");
+        $detail = $ambil->fetch_assoc();
+
+        ?>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="checkout-cart">
+                    <h3><?php echo $detail['nama_pembeli'] ?></h3>
+                    <div class="checkout-cart-image">
+                        <img src="../img/profil/<?php echo $detail['foto_pembeli']; ?>" alt="profil1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <strong>Nama: <?php echo $detail['nama_pembeli']; ?></strong><br>
+                <p>
+                    No Hp : <?php echo $detail['no_hp_pembeli']; ?> <br>
+                    Email : <?php echo $detail['email_pembeli']; ?> <br>
+                    Alamat : <?php echo $detail['alamat_pengiriman']; ?>
+
+                </p>
+
+                <p>
+                    Tanggal : <?php echo $detail['tanggal_pembelian']; ?> <br>
+                    Total Pembelian : <?php echo $detail['total_pembelian']; ?>
+                </p>
+            </div>
+
+            <div class="col-md-3">
+                <h3>Pembelian</h3>
+                <strong>No. Pembelian: <?php echo $detail['id_pembelian']; ?></strong><br>
+                <p>
+                    Tanggal:<?php echo $detail['tanggal_pembelian']; ?> <br>
+                    Total:<?php echo $detail['total_pembelian']; ?>
+                </p>
+            </div>
+        </div>
+        <br>
+
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>no</th>
+                    <th>Ikan</th>
+                    <th>harga</th>
+                    <th>jumlah</th>
+                    <th>subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php $nomor = 1; ?>
+                <?php $ambil = $koneksi->query("SELECT * FROM pembelian_ikan JOIN pembelian ON pembelian_ikan.id_pembelian=pembelian.id_pembelian WHERE pembelian.id_pembelian='$_GET[id]'"); ?>
+                <?php while ($pecah = $ambil->fetch_assoc()) { ?>
+                    <tr>
+                        <td><?php echo $nomor; ?></td>
+                        <td><?php echo $pecah['nama_ikan']; ?></td>
+                        <td><?php echo $pecah['harga_ikan']; ?></td>
+                        <td><?php echo $pecah['jumlah']; ?></td>
+                        <td><?php echo $pecah['harga_total'] ?></td>
+                    </tr>
+                    <?php $nomor++; ?>
+                <?php } ?>
+            </tbody>
+        </table>
+
+        <form action="" method="post">
+            <button name="konfirmasi" class="btn btn-success">Konfirmasi Telah Diantar</button>
+        </form>
+        <br><br>
+
+        <?php
+        if (isset($_POST['konfirmasi'])) {
+            $koneksi->query("UPDATE pembelian SET status = 'selesai' WHERE id_pembelian = $_GET[id] ");
+            echo "<script>location='pembelian.php' </script>";
+        }
+        ?>
+
+    </div>
+
     <!-- bagian bawah -->
     <section class="footer-section">
         <div class="container">
