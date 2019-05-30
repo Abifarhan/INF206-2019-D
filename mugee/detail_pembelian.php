@@ -59,6 +59,10 @@ if (!isset($_SESSION['mugee'])) {
                     <div class="col-xl-4 col-lg-5">
                         <div class="user-panel">
                             <div class="up-item">
+                                <i class="flaticon-profile"></i>
+                                <a href="index.php"><?php echo $_SESSION['mugee']['nama_mugee']; ?></a>
+                            </div>
+                            <div class="up-item">
                                 <?php 
                                     $ambil = $koneksi->query("SELECT * FROM pembelian WHERE status = 'proses'");
                                     $banyak = mysqli_num_rows($ambil);
@@ -190,6 +194,7 @@ if (!isset($_SESSION['mugee'])) {
         <?php
         if (isset($_POST['konfirmasi'])) {
             $koneksi->query("UPDATE pembelian SET status = 'selesai' WHERE id_pembelian = $_GET[id] ");
+            echo "<script> alert('Konfirmasi anda sukses .!');</script>";
             echo "<script>location='pembelian.php' </script>";
         }
         ?>
