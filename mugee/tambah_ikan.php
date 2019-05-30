@@ -87,6 +87,10 @@
 					<div class="col-xl-4 col-lg-5">
 						<div class="user-panel">
 							<div class="up-item">
+								<i class="flaticon-profile"></i>
+								<a href="index.php"><?php echo $_SESSION['mugee']['nama_mugee']; ?></a>
+							</div>
+							<div class="up-item">
 								<?php 
  									$ambil = $koneksi->query("SELECT * FROM pembelian WHERE status = 'proses'");
  									$banyak = mysqli_num_rows($ambil);
@@ -166,7 +170,7 @@
 								VALUES('$_POST[nama]', '$_POST[harga]', '$_POST[stok]', '$_POST[deskripsi]', '$nama', 'Tersedia')");
 
 							echo "<div class='alert alert-info'>Data tersimpan</div>";
-							echo " <meta http-equiv='refresh' content='l;url=ikan.php'>";
+                			echo "<meta http-equiv='refresh' content='1;url=ikan.php'>";
 
 						}
 

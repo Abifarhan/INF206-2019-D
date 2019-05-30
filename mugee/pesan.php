@@ -61,6 +61,10 @@
           <div class="col-xl-4 col-lg-5">
             <div class="user-panel">
               <div class="up-item">
+                <i class="flaticon-profile"></i>
+                <a href="index.php"><?php echo $_SESSION['mugee']['nama_mugee']; ?></a>
+              </div>
+              <div class="up-item">
                 <?php 
                   $ambil = $koneksi->query("SELECT * FROM pembelian WHERE status = 'proses'");
                   $banyak = mysqli_num_rows($ambil);
