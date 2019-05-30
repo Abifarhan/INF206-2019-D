@@ -73,7 +73,7 @@
 							</div>
 							<div class="up-item">
 								<?php 
- 									$ambil = $koneksi->query("SELECT * FROM pembelian WHERE status = 'proses' ");
+ 									$ambil = $koneksi->query("SELECT * FROM pembelian WHERE status = 'proses'");
  									$banyak = mysqli_num_rows($ambil);
 								?>
 								<div class="shopping-card">
