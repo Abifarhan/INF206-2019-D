@@ -72,9 +72,19 @@
 								<a href="index.php"><?php echo $_SESSION['mugee']['nama_mugee']; ?></a>
 							</div>
 							<div class="up-item">
+								<?php 
+ 									$ambil = $koneksi->query("SELECT * FROM pembelian JOIN pembeli ON pembelian.id_pembeli = pembeli.id_pembeli AND pembelian.status = 'proses' ");
+ 									$banyak = $ambil->mysql_num_rows();
+								?>
 								<div class="shopping-card">
 									<i class="flaticon-bag"></i>
-									<span>0</span>
+									<span><?php 
+										if ($banyak > 0) {
+											echo $banyak;
+										}else{
+											echo "0";
+										}
+									?></span>
 								</div>
 								<a href="pembelian.php">Pesanan</a>
 							</div>
