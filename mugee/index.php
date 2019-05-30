@@ -73,18 +73,20 @@
 							</div>
 							<div class="up-item">
 								<?php 
- 									$ambil = $koneksi->query("SELECT * FROM pembelian JOIN pembeli ON pembelian.id_pembeli = pembeli.id_pembeli AND pembelian.status = 'proses' ");
- 									$banyak = $ambil->mysql_num_rows();
+ 									$ambil = $koneksi->query("SELECT * FROM pembelian WHERE status = 'proses' ");
+ 									$banyak = mysqli_num_rows($ambil);
 								?>
 								<div class="shopping-card">
 									<i class="flaticon-bag"></i>
-									<span><?php 
+									<span>
+									<?php 
 										if ($banyak > 0) {
 											echo $banyak;
 										}else{
 											echo "0";
 										}
-									?></span>
+									?>
+									</span>
 								</div>
 								<a href="pembelian.php">Pesanan</a>
 							</div>
