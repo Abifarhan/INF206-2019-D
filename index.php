@@ -32,6 +32,30 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 	<link rel="stylesheet" href="css/animate.css" />
 	<link rel="stylesheet" href="css/style.css" />
 
+	<style>
+		.product-item .tag-sale-1 {
+			position: absolute;
+			right: 16px;
+			top: 14px;
+			font-size: 13px;
+			font-weight: 700;
+			color: #fff;
+			background: #50e550;
+			line-height: 1;
+			text-transform: uppercase;
+			padding: 5px 9px 1px;
+			border-radius: 15px;
+			width: 42px;
+		}
+
+		.product-item .tag-sale-1 {
+			text-align: center;
+			padding: 5px 0px 1px;
+			min-width: 90px;
+			background: #50e550;
+		}
+	</style>
+
 </head>
 
 <body>
@@ -227,9 +251,9 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 						<div class="product-item">
 							<div class="pi-pic">
 								<?php if ($variabel['stok_ikan'] <= 0) { ?>
-									<div class="tag-sale">HABIS</div>
+									<div class="tag-sale-1">HABIS</div>
 								<?php } else { ?>
-									<div class="tag-sale">STOK: <?php echo $variabel['stok_ikan']; ?>kg</div>
+									<div class="tag-sale-1">STOK: <?php echo $variabel['stok_ikan']; ?>kg</div>
 								<?php } ?>
 								<a href="detail_ikan.php?id=<?php echo $variabel['id_ikan'] ?>"><img src="img/Ikan/<?php echo $variabel['gambar_ikan']; ?>" alt="tampil"></a>
 								<div class="pi-links">
@@ -265,9 +289,9 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 						<div class="product-item">
 							<div class="pi-pic">
 								<?php if ($variabel['stok_ikan'] <= 0) { ?>
-									<div class="tag-sale">HABIS</div>
+									<div class="tag-sale-1">HABIS</div>
 								<?php } else { ?>
-									<div class="tag-sale">STOK: <?php echo $variabel['stok_ikan']; ?>kg</div>
+									<div class="tag-sale-1">STOK: <?php echo $variabel['stok_ikan']; ?>kg</div>
 								<?php } ?>
 								<a href="detail_ikan.php?id=<?php echo $variabel['id_ikan'] ?>"><img src="img/Ikan/<?php echo $variabel['gambar_ikan']; ?>" alt=""></a>
 								<div class="pi-links">
