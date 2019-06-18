@@ -31,5 +31,4 @@
 		echo "<script>location='detail_ikan.php?id=".$id_ikan."'</script>";
 	}
 
-	echo "<script>alert('pesanan ikan sudah masuk ke keranjang belanja');</script>";
 	echo "<script>location='keranjang.php'</script>";

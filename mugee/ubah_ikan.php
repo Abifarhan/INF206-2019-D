@@ -98,9 +98,21 @@
 								<a href="index.php"><?php echo $_SESSION['mugee']['nama_mugee']; ?></a>
 							</div>
 							<div class="up-item">
+								<?php 
+ 									$ambil = $koneksi->query("SELECT * FROM pembelian WHERE status = 'proses'");
+ 									$banyak = mysqli_num_rows($ambil);
+								?>
 								<div class="shopping-card">
 									<i class="flaticon-bag"></i>
-									<span>0</span>
+									<span>
+									<?php 
+										if ($banyak > 0) {
+											echo $banyak;
+										}else{
+											echo "0";
+										}
+									?>
+									</span>
 								</div>
 								<a href="pembelian.php">Pesanan</a>
 							</div>
@@ -147,8 +159,8 @@
 										WHERE id_ikan='$_GET[id]'");
 								}
 
-								echo "<div class='alert alert-info'>Data tersimpan</div>";
-								echo " <meta http-equiv='refresh' content='l;url=ikan.php'>";
+								echo "<div class='alert alert-info'>Data diubah</div>";
+               					echo "<meta http-equiv='refresh' content='1;url=ikan.php'>";
 
 							}
 						 ?>
