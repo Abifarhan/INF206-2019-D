@@ -230,17 +230,17 @@
 							<li>
 								<div class="pl-thumb"><img src="img/Ikan/<?php echo $pecah['gambar_ikan']; ?>" alt=""></div>
 								<h6><?php echo $pecah['nama_ikan'] ?></h6>
-								<p>Rp.<?php echo number_format($pecah['harga_ikan']*$jumlah) ?>/kg</p>
+								<p>Rp.<?php echo number_format($pecah['harga_ikan']*$jumlah,0,',','.') ?>/kg</p>
 							</li>
-							<?php $total +=$pecah['harga_ikan']*$jumlah ?>
+							<?php $total += $pecah['harga_ikan']*$jumlah ?>
 							<?php endforeach ?>
 							<?php } ?>
 
 						</ul>
 						<ul class="price-list">
-							<li>Total<span>Rp.<?php echo $total ?></span></li>
+							<li>Total<span>Rp.<?php echo number_format($total,0,',','.') ?></span></li>
 							<li>Pengiriman<span>Gratis</span></li>
-							<li class="total">Total<span>Rp.<?php echo $total ?></span></li>
+							<li class="total">Total<span>Rp.<?php echo number_format($total,0,',','.') ?></span></li>
 						</ul>
 					</div>
 				</div>

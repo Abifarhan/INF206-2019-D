@@ -162,7 +162,7 @@
                 // simpan di session pelanggan
                 $_SESSION['pembeli'] = $akun;
                 echo "<div class='alert alert-info'>Login sukses</div>";
-                echo "<meta http-equiv='refresh' content='1;url=profil.php'>";
+                echo "<meta http-equiv='refresh' content='1;url=index.php'>";
               }else{
               // }anda gagal login
                 echo "<div class='alert alert-danger'>Login gagal</div>";
@@ -215,7 +215,7 @@
                 // simpan di session pelanggan
                 $_SESSION['mugee'] = $akun;
                 echo "<div class='alert alert-info'>Login sukses</div>";
-                echo "<meta http-equiv='refresh' content='1;url=mugee/index.php'>";
+                echo "<script>location = 'mugee/pembelian.php';</script>";
               }else{
               // }anda gagal login
                 echo "<div class='alert alert-danger'>Login gagal</div>";

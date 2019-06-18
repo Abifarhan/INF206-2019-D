@@ -32,6 +32,30 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 	<link rel="stylesheet" href="css/animate.css" />
 	<link rel="stylesheet" href="css/style.css" />
 
+	<style>
+		.product-item .tag-sale-1 {
+			position: absolute;
+			right: 16px;
+			top: 14px;
+			font-size: 13px;
+			font-weight: 700;
+			color: #fff;
+			background: #50e550;
+			line-height: 1;
+			text-transform: uppercase;
+			padding: 5px 9px 1px;
+			border-radius: 15px;
+			width: 42px;
+		}
+
+		.product-item .tag-sale-1 {
+			text-align: center;
+			padding: 5px 0px 1px;
+			min-width: 90px;
+			background: #50e550;
+		}
+	</style>
+
 </head>
 
 <body>
@@ -85,20 +109,24 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 							<button class="btn btn-outline-secondary btn-rounded my-0" name="search" type="submit">Cari</button>
 						</form>
 					</div>
-					<!-- ini fungsi untuk mencari ikan -->
-					<?php
-					if (isset($_POST['cari'])) {
-						$koneksi = new mysqli("localhost", "root", "", "mugon");
-						$ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
-						$pecah = $ambil->fetch_assoc();
-						if (!empty($pecah)) {
-							echo "<script>location='detail_ikan.php?id=" . $pecah['id_ikan'] . "'</script>";
-						} else {
-							echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
-						}
-					}
-					?>
+					<!-- fungsi search ikan -->
+					<?php 
+						if (isset($_POST['cari'])) {
+							if (!empty($_POST['cari'])) {
+								$koneksi = new mysqli("localhost", "root", "", "mugon");
+								$ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
+								$pecah = $ambil->fetch_assoc();	
+								if (!empty($pecah)) {
+									echo "<script>location='detail_ikan.php?id=".$pecah['id_ikan']."'</script>";	
+								}else{
+									echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
+									echo "<script>location='index.php'</script>";
+								}
+							}else{
 
+							}
+						}
+					?>
 				</div>
 			</div>
 		</div>
@@ -156,7 +184,7 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 									<h3>SUDAH HABIS</h3>
 								<?php } else { ?>
 									<span>Hanya</span>
-									<?php echo "<h4>" . $variabel['harga_ikan'] . "/kg</h4>" ?>
+									<?php echo "<h4>Rp." . number_format($variabel['harga_ikan'],0,',','.') . "/kg</h4>" ?>
 									<p>Beli Sekarang</p>
 								<?php } ?>
 							</div>
@@ -223,9 +251,9 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 						<div class="product-item">
 							<div class="pi-pic">
 								<?php if ($variabel['stok_ikan'] <= 0) { ?>
-									<div class="tag-sale">HABIS</div>
+									<div class="tag-sale-1">HABIS</div>
 								<?php } else { ?>
-									<div class="tag-sale">STOK: <?php echo $variabel['stok_ikan']; ?>kg</div>
+									<div class="tag-sale-1">STOK: <?php echo $variabel['stok_ikan']; ?>kg</div>
 								<?php } ?>
 								<a href="detail_ikan.php?id=<?php echo $variabel['id_ikan'] ?>"><img src="img/Ikan/<?php echo $variabel['gambar_ikan']; ?>" alt="tampil"></a>
 								<div class="pi-links">
@@ -233,7 +261,7 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 								</div>
 							</div>
 							<div class="pi-text">
-								<?php echo "<h6>" . $variabel['harga_ikan'] . "/kg</h6>" ?>
+								<?php echo "<h6>Rp. " . number_format($variabel['harga_ikan'],0,',','.') . "/kg</h6>" ?>
 								<?php echo "<p>" . $variabel['nama_ikan'] . "</p>" ?>
 							</div>
 						</div>
@@ -261,9 +289,9 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 						<div class="product-item">
 							<div class="pi-pic">
 								<?php if ($variabel['stok_ikan'] <= 0) { ?>
-									<div class="tag-sale">HABIS</div>
+									<div class="tag-sale-1">HABIS</div>
 								<?php } else { ?>
-									<div class="tag-sale">STOK: <?php echo $variabel['stok_ikan']; ?>kg</div>
+									<div class="tag-sale-1">STOK: <?php echo $variabel['stok_ikan']; ?>kg</div>
 								<?php } ?>
 								<a href="detail_ikan.php?id=<?php echo $variabel['id_ikan'] ?>"><img src="img/Ikan/<?php echo $variabel['gambar_ikan']; ?>" alt=""></a>
 								<div class="pi-links">
@@ -271,7 +299,7 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 								</div>
 							</div>
 							<div class="pi-text">
-								<?php echo "<h6>" . $variabel['harga_ikan'] . "/kg</h6>" ?>
+								<?php echo "<h6>Rp. " . number_format($variabel['harga_ikan'],0,',','.') . "/kg</h6>" ?>
 								<?php echo "<p>" . $variabel['nama_ikan'] . "</p>" ?>
 							</div>
 						</div>

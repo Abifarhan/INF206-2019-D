@@ -824,7 +824,7 @@ ol {
 	position: absolute;
 	right: 16px;
 	top: 14px;
-	font-size: 10px;
+	font-size: 13px;
 	font-weight: 700;
 	color: #fff;
 	background: #50e550;
@@ -838,8 +838,8 @@ ol {
 .product-item .tag-sale {
 	text-align: center;
 	padding: 5px 0px 1px;
-	min-width: 65px;
-	background: #f51167;
+	min-width: 90px;
+	background: #50e550;
 }
 
 .product-item .pi-links {

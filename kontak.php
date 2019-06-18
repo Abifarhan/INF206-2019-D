@@ -14,6 +14,10 @@
 		echo "<script>location='login.php';</script>";
 	}
 
+	if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
+		$banyak = count($_SESSION['keranjang']);
+	}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -59,7 +63,6 @@
 						</a>
 					</div>
 					<div class="col-lg-3">
-
 					</div>
 					<div class="col-lg-4">
 						<div class="user-panel">
@@ -67,7 +70,7 @@
 								<i class="flaticon-profile"></i>
 								<?php if (isset($_SESSION['pembeli'])) { ?>
 									<a href="profil.php"><?php echo $_SESSION['pembeli']['nama_pembeli']; ?></a>
-								<?php }else{ ?>
+								<?php } else { ?>
 									<a href="login.php">Login</a> atau <a href="daftar.php">Daftar</a>
 								<?php } ?>
 							</div>
@@ -75,11 +78,11 @@
 								<div class="shopping-card">
 									<i class="flaticon-bag"></i>
 									<span>
-									<?php if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
-										echo $banyak; 
-									}else{
-									 	echo '0';
-									} ?>
+										<?php if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
+											echo $banyak;
+										} else {
+											echo '0';
+										} ?>
 									</span>
 
 								</div>
@@ -89,25 +92,28 @@
 					</div>
 					<div class="col-lg-3">
 						<form class="form-inline mr-auto" method="post" action="">
-						  <input class="form-control mr-sm-2" name="cari" type="text" placeholder="Cari Ikan" aria-label="Search">
-						  <button class="btn btn-outline-secondary btn-rounded my-0" name="search" type="submit">Cari</button>
+							<input class="form-control mr-sm-2" name="cari" type="text" placeholder="Cari Ikan" aria-label="Search">
+							<button class="btn btn-outline-secondary btn-rounded my-0" name="search" type="submit">Cari</button>
 						</form>
 					</div>
-
 					<!-- fungsi search ikan -->
 					<?php 
 						if (isset($_POST['cari'])) {
-							$ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
-							$pecah = $ambil->fetch_assoc();	
-							if (!empty($pecah)) {
-								echo "<script>location='detail_ikan.php?id=".$pecah['id_ikan']."'</script>";	
+							if (!empty($_POST['cari'])) {
+								$koneksi = new mysqli("localhost", "root", "", "mugon");
+								$ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
+								$pecah = $ambil->fetch_assoc();	
+								if (!empty($pecah)) {
+									echo "<script>location='detail_ikan.php?id=".$pecah['id_ikan']."'</script>";	
+								}else{
+									echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
+									echo "<script>location='index.php'</script>";
+								}
 							}else{
-								echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
-								echo "<script>location='index.php'</script>";
+
 							}
 						}
 					?>
-
 				</div>
 			</div>
 		</div>
@@ -209,7 +215,7 @@
 						</div>
 					</div>
 					<div class="pi-text">
-						<?php echo "<h6>". $variabel['harga_ikan']."/kg</h6>"?>
+						<?php echo "<h6>Rp. ". number_format($variabel['harga_ikan'],0,',','.') ."/kg</h6>"?>
 						<?php echo "<p>". $variabel['nama_ikan']."</p>"?>
 					</div>
 				</div>
