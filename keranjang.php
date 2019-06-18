@@ -124,23 +124,25 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 							<button class="btn btn-outline-secondary btn-rounded my-0" name="search" type="submit">Cari</button>
 						</form>
 					</div>
-
 					<!-- fungsi search ikan -->
-					<?php
-					if (isset($_POST['cari'])) {
-						$koneksi = new mysqli("localhost", "root", "", "mugon");
-						$ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
-						$pecah = $ambil->fetch_assoc();
-						if (!empty($pecah)) {
-							echo "<script>location='detail_ikan.php?id=" . $pecah['id_ikan'] . "'</script>";
-						} else {
-							echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
-							echo "<script>location='index.php'</script>";
+					<?php 
+						if (isset($_POST['cari'])) {
+							if (!empty($_POST['cari'])) {
+								$koneksi = new mysqli("localhost", "root", "", "mugon");
+								$ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
+								$pecah = $ambil->fetch_assoc();	
+								if (!empty($pecah)) {
+									echo "<script>location='detail_ikan.php?id=".$pecah['id_ikan']."'</script>";	
+								}else{
+									echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
+									echo "<script>location='index.php'</script>";
+								}
+							}else{
+
+							}
 						}
-					}
 					?>
 					<!-- akhir fungsi search -->
-
 				</div>
 			</div>
 		</div>
@@ -206,7 +208,7 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 													<img src="img/Ikan/<?php echo $pecah['gambar_ikan']; ?>" alt="">
 													<div class="pc-title">
 														<h4><?php echo $pecah['nama_ikan'] ?></h4>
-														<p>Rp. <?php echo number_format($pecah['harga_ikan'])  ?> / kg</p>
+														<p>Rp. <?php echo number_format($pecah['harga_ikan'],0,',','.')  ?> / kg</p>
 													</div>
 												</td>
 												<td class="quy-col">
@@ -217,7 +219,7 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 													</div>
 												</td>
 												<td class="total-col">
-													<h4>Rp.<?php echo number_format($pecah['harga_ikan'] * $jumlah); ?></h4>
+													<h4>Rp.<?php echo number_format($pecah['harga_ikan'] * $jumlah,0,',','.'); ?></h4>
 												</td>
 												<td class="">
 													<h4><a href="hapus_keranjang.php?id=<?php echo "$id_ikan"; ?>" class="btn btn-danger btn-xs">Hapus</a></h4>
@@ -232,7 +234,7 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 							</table>
 						</div>
 						<div class="total-cost">
-							<h6>Total <span>Rp.<?php echo number_format($total); ?></span></h6>
+							<h6>Total <span>Rp. <?php echo number_format($total,0,',','.'); ?></span></h6>
 						</div>
 					</div>
 				</div>
@@ -273,7 +275,7 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 									</div>
 								</div>
 								<div class="pi-text">
-									<?php echo "<h6>" . $variabel['harga_ikan'] . "/kg</h6>" ?>
+									<?php echo "<h6>Rp. " . number_format($variabel['harga_ikan'],0,',','.') . "/kg</h6>" ?>
 									<?php echo "<p>" . $variabel['nama_ikan'] . "</p>" ?>
 								</div>
 							</div>

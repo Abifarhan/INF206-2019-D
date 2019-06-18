@@ -161,7 +161,7 @@
         <tr>
           <th scope="col">No</th>
           <th scope="col">Nama</th>
-          <th scope="col">Harga / kg</th>
+          <th scope="col">Harga(Rp) / kg</th>
           <th scope="col">Jumlah / kg</th>
           <th scope="col">Gambar</th>
         </tr>
@@ -178,7 +178,7 @@
         <tr>
           <th scope="row"><?php echo $nomor ?></th>
           <td><?php echo $pecah_ikan['nama_ikan'] ?></td>
-          <td><?php echo $pecah_ikan['harga_ikan'] ?></td>
+          <td><?php echo number_format($pecah_ikan['harga_ikan'],0,',','.') ?></td>
           <th><?php echo $pecah_ikan['jumlah']; ?></th>
           <td><img style="width: 100px;" src="img/Ikan/<?php echo $pecah_ikan['gambar_ikan'] ?>" alt=""></td>
         </tr>
@@ -215,7 +215,7 @@
         <tr>
           <th scope="col">No</th>
           <th scope="col">Nama</th>
-          <th scope="col">Harga / kg</th>
+          <th scope="col">Harga(Rp) / kg</th>
           <th scope="col">Jumlah / kg</th>
           <th scope="col">Gambar</th>
         </tr>
@@ -231,7 +231,7 @@
         <tr>
           <th scope="row"><?php echo $nomor ?></th>
           <td><?php echo $pecah_ikan['nama_ikan'] ?></td>
-          <td><?php echo $pecah_ikan['harga_ikan'] ?></td>
+          <td><?php echo number_format($pecah_ikan['harga_ikan'],0,',','.') ?></td>
           <th><?php echo $pecah_ikan['jumlah']; ?></th>
           <td><img style="width: 100px;" src="img/Ikan/<?php echo $pecah_ikan['gambar_ikan'] ?>" alt=""></td>
         </tr>

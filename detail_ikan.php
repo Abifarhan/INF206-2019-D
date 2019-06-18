@@ -106,14 +106,18 @@
 					<!-- fungsi search ikan -->
 					<?php 
 						if (isset($_POST['cari'])) {
-							$koneksi = new mysqli("localhost", "root", "", "mugon");
-							$ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
-							$pecah = $ambil->fetch_assoc();	
-							if (!empty($pecah)) {
-								echo "<script>location='detail_ikan.php?id=".$pecah['id_ikan']."'</script>";	
+							if (!empty($_POST['cari'])) {
+								$koneksi = new mysqli("localhost", "root", "", "mugon");
+								$ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
+								$pecah = $ambil->fetch_assoc();	
+								if (!empty($pecah)) {
+									echo "<script>location='detail_ikan.php?id=".$pecah['id_ikan']."'</script>";	
+								}else{
+									echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
+									echo "<script>location='index.php'</script>";
+								}
 							}else{
-								echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
-								echo "<script>location='index.php'</script>";
+
 							}
 						}
 					?>
@@ -166,7 +170,7 @@
 				<div class="col-lg-6 product-details">
 
 					<h2 class="p-title"><?php echo $pecah['nama_ikan'] ?></h2>
-					<h3 class="p-price">Rp. <?php echo $pecah['harga_ikan'] ?> / kg</h3>
+					<h3 class="p-price">Rp. <?php echo number_format($pecah['harga_ikan'],0,',','.') ?> / kg</h3>
 					<h4 class="p-stock">Tersedia: <span>Stok : <?php echo $pecah['stok_ikan'] ?> kg</span></h4>
 					<div class="p-review">
 						<a href="">3 Pembeli</a>|<a href=""></a>
@@ -262,7 +266,7 @@
 						</div>
 					</div>
 					<div class="pi-text">
-						<?php echo "<h6>". $variabel['harga_ikan']."/kg</h6>"?>
+						<?php echo "<h6>Rp. ". number_format($variabel['harga_ikan'],0,',','.')."/kg</h6>"?>
 						<?php echo "<p>". $variabel['nama_ikan']."</p>"?>
 					</div>
 				</div>

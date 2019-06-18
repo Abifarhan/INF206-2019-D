@@ -85,20 +85,24 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 							<button class="btn btn-outline-secondary btn-rounded my-0" name="search" type="submit">Cari</button>
 						</form>
 					</div>
-					<!-- ini fungsi untuk mencari ikan -->
-					<?php
-					if (isset($_POST['cari'])) {
-						$koneksi = new mysqli("localhost", "root", "", "mugon");
-						$ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
-						$pecah = $ambil->fetch_assoc();
-						if (!empty($pecah)) {
-							echo "<script>location='detail_ikan.php?id=" . $pecah['id_ikan'] . "'</script>";
-						} else {
-							echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
-						}
-					}
-					?>
+					<!-- fungsi search ikan -->
+					<?php 
+						if (isset($_POST['cari'])) {
+							if (!empty($_POST['cari'])) {
+								$koneksi = new mysqli("localhost", "root", "", "mugon");
+								$ambil = $koneksi->query("SELECT id_ikan FROM ikan WHERE nama_ikan LIKE '%$_POST[cari]%' ");
+								$pecah = $ambil->fetch_assoc();	
+								if (!empty($pecah)) {
+									echo "<script>location='detail_ikan.php?id=".$pecah['id_ikan']."'</script>";	
+								}else{
+									echo "<script>alert('Ikan yang anda cari tidak ada !!');</script>";
+									echo "<script>location='index.php'</script>";
+								}
+							}else{
 
+							}
+						}
+					?>
 				</div>
 			</div>
 		</div>
@@ -156,7 +160,7 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 									<h3>SUDAH HABIS</h3>
 								<?php } else { ?>
 									<span>Hanya</span>
-									<?php echo "<h4>" . $variabel['harga_ikan'] . "/kg</h4>" ?>
+									<?php echo "<h4>Rp." . number_format($variabel['harga_ikan'],0,',','.') . "/kg</h4>" ?>
 									<p>Beli Sekarang</p>
 								<?php } ?>
 							</div>
@@ -233,7 +237,7 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 								</div>
 							</div>
 							<div class="pi-text">
-								<?php echo "<h6>" . $variabel['harga_ikan'] . "/kg</h6>" ?>
+								<?php echo "<h6>Rp. " . number_format($variabel['harga_ikan'],0,',','.') . "/kg</h6>" ?>
 								<?php echo "<p>" . $variabel['nama_ikan'] . "</p>" ?>
 							</div>
 						</div>
@@ -271,7 +275,7 @@ if (isset($_SESSION['keranjang']) || (!empty($_SESSION['keranjang']))) {
 								</div>
 							</div>
 							<div class="pi-text">
-								<?php echo "<h6>" . $variabel['harga_ikan'] . "/kg</h6>" ?>
+								<?php echo "<h6>Rp. " . number_format($variabel['harga_ikan'],0,',','.') . "/kg</h6>" ?>
 								<?php echo "<p>" . $variabel['nama_ikan'] . "</p>" ?>
 							</div>
 						</div>
